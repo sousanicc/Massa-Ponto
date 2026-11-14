@@ -3,16 +3,16 @@ package com.massapontogrupo.massaponto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller 
+@Controller
 public class MenuController {
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/p1")
-    public String pagina1(){
+    public String pagina1() {
         return "p1";
     }
 
