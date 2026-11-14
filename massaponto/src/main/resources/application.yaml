@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://127.0.0.1:5432/massapontodb
+    username: postgres
+    password: 525896
+    driverClassName: org.postgresql.Driver
+
+sql:
+  init:
+    mode: always
+    schema-locations: classpath:schema-postgres.sql
