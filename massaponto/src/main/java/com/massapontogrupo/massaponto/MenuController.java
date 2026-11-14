@@ -11,9 +11,4 @@ public class MenuController {
         return "index";
     }
 
-    @GetMapping("/p1")
-    public String pagina1() {
-        return "p1";
-    }
-
 }
