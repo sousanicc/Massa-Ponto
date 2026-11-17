@@ -1,4 +1,7 @@
-package com.massapontogrupo.massaponto.model;
+package com.massapontogrupo.massaponto;
+
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -7,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.massapontogrupo.massaponto.model.Cliente;
+import com.massapontogrupo.massaponto.model.ClienteService;;;
 
 @Controller
 public class MenuController {
@@ -30,6 +36,14 @@ public class MenuController {
         ClienteService cs = context.getBean(ClienteService.class);
         cs.inserirCliente(cli);
         return "sucesso";
+    }
+
+    @GetMapping("/clientes")
+    public String listarClientes(Model model) {
+        ClienteService cs = context.getBean(ClienteService.class);
+        List<Map<String, Object>> clientes = cs.listarCliente();
+        model.addAttribute("clientes", clientes);
+        return "listacliente";
     }
 
 }
