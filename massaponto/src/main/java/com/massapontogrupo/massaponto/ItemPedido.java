@@ -1,6 +1,7 @@
 package com.massapontogrupo.massaponto;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -25,6 +26,7 @@ public class ItemPedido {
     @Column("preco_unitario_centavos")
     private Integer precoUnitarioCentavos;
 
+    @Transient
     private Produto produto;
 
     public ItemPedido() {

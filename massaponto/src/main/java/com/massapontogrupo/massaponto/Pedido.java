@@ -1,6 +1,7 @@
 package com.massapontogrupo.massaponto;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -29,6 +30,7 @@ public class Pedido {
     @Column("total_centavos")
     private Integer totalCentavos;
 
+    @Transient
     private List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido() {

@@ -17,7 +17,7 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 
     Optional<Produto> findByNomeAndAtivoTrue(String nome);
 
-    @Query("SELECT * FROM produto WHERE ativo = true AND (nome ILIKE %:termo% OR descricao ILIKE %:termo%) ORDER BY nome ASC")
+    @Query("SELECT * FROM produto WHERE ativo = true AND (nome ILIKE '%' || :termo || '%' OR descricao ILIKE '%' || :termo || '%') ORDER BY nome ASC")
     List<Produto> buscarPorTermo(@Param("termo") String termo);
 
     List<Produto> findByMaisPedidaTrueAndAtivoTrue();
