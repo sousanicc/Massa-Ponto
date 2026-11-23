@@ -18,6 +18,7 @@ public class MenuController {
         model.addAttribute("pizzasSalgadas", produtoRepository.findByCategoriaAndAtivoTrueOrderByNomeAsc(Categoria.PIZZA_SALGADA));
         model.addAttribute("pizzasDoces", produtoRepository.findByCategoriaAndAtivoTrueOrderByNomeAsc(Categoria.PIZZA_DOCE));
         model.addAttribute("bebidas", produtoRepository.findByCategoriaAndAtivoTrueOrderByNomeAsc(Categoria.BEBIDA));
+        model.addAttribute("maisPedidas", produtoRepository.findByMaisPedidaTrueAndAtivoTrue());
         return "index";
     }
 

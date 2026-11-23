@@ -1,151 +1,476 @@
-* {
+:root {
+    color-scheme: dark;
+
+    /* Marca */
+    --tomate: #C8372D;
+    --tomate-escuro: #A82B22;
+    --queijo: #F2B84B;
+    --manjericao: #3F6B3A;
+
+    /* Neutros tema escuro */
+    --fundo: #1A1411;
+    --superficie: #251C17;
+    --superficie-alta: #2F241E;
+    --borda: #3A2D25;
+    --texto: #F5EBDD;
+    --texto-suave: #B8A899;
+
+    /* Variantes */
+    --tomate-claro: #EF6A5E;
+    --tomate-suave: #3A1D1A;
+    --queijo-suave: #33291A;
+    --texto-escuro: #2B1D16;
+
+    /* Tipografia */
+    --fonte-titulo: 'Fraunces', serif;
+    --fonte-corpo: 'DM Sans', system-ui, sans-serif;
+
+    /* Espaçamentos */
+    --espacamento-xs: 4px;
+    --espacamento-sm: 8px;
+    --espacamento-md: 16px;
+    --espacamento-lg: 24px;
+    --espacamento-xl: 32px;
+
+    /* Raio */
+    --raio-sm: 6px;
+    --raio-md: 12px;
+    --raio-lg: 16px;
+    --raio-pill: 999px;
+
+    /* Sombra */
+    --sombra-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --sombra-card-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    /* Alturas para scroll offset */
+    --header-altura: 64px;
+    --chips-altura: 48px;
+    --offset-topo: calc(var(--header-altura) + var(--chips-altura) + 16px);
+}
+
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #1a1a1a;
-    color: #f0f0f0;
-    line-height: 1.6;
-    min-height: 100vh;
-}
-
-header {
-    background-color: #0d0d0d;
-    padding: 1.5rem 2rem;
-    border-bottom: 2px solid #c41e3a;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.subtitle {
-    color: #c41e3a;
-    font-size: 1.1rem;
-    margin-top: 0.25rem;
+    font-family: var(--fonte-corpo);
     font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.6;
+    background-color: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-    max-width: 1000px;
+/* Tipografia títulos */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--texto);
+}
+
+/* Foco visível para acessibilidade */
+:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+/* Links */
+a {
+    color: var(--tomate-claro);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--tomate);
+}
+
+/* Imagens */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--fundo);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--borda);
+    border-radius: var(--raio-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--superficie-alta);
+}
+
+/* ===== HEADER ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--superficie);
+    border-bottom: 1px solid var(--borda);
+    padding: var(--espacamento-md) var(--espacamento-lg);
+}
+
+.header-conteudo {
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-.categoria {
-    margin-bottom: 3rem;
-}
-
-.categoria h2 {
-    font-size: 1.5rem;
-    color: #c41e3a;
-    border-bottom: 1px solid #333;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.produto-card {
-    background-color: #242424;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #333;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.produto-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    border-color: #c41e3a;
-}
-
-.produto-imagem {
-    height: 180px;
-    background-color: #1a1a1a;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: var(--espacamento-md);
+}
+
+.logo {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    text-decoration: none;
+    color: var(--texto);
+}
+
+.logo:hover {
+    color: var(--texto);
+}
+
+.logo-parte {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--texto);
+    line-height: 1;
+}
+
+.logo-e {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    color: var(--tomate-claro);
+    line-height: 1;
+}
+
+.logo-ponto {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--queijo);
+    line-height: 1;
+}
+
+/* ===== CATEGORIAS (CHIPS STICKY) ===== */
+.categorias {
+    position: sticky;
+    top: var(--header-altura);
+    z-index: 90;
+    background-color: var(--fundo);
+    border-bottom: 1px solid var(--borda);
+    padding: var(--espacamento-sm) var(--espacamento-lg);
+}
+
+.categorias-lista {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: var(--espacamento-sm);
+    overflow-x: auto;
+    padding-bottom: var(--espacamento-xs);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.categoria-chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    padding: var(--espacamento-xs) var(--espacamento-md);
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    background-color: var(--superficie-alta);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-pill);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.categoria-chip:hover,
+.categoria-chip:focus-visible {
+    background-color: var(--tomate);
+    color: #fff;
+    border-color: var(--tomate);
+}
+
+/* ===== PRINCIPAL / SEÇÕES ===== */
+.principal {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--espacamento-lg) var(--espacamento-md);
+}
+
+.secao {
+    margin-bottom: var(--espacamento-xl);
+    scroll-margin-top: var(--offset-topo);
+}
+
+.secao-titulo {
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    font-weight: 700;
+    margin-bottom: var(--espacamento-md);
+    color: var(--texto);
+}
+
+/* ===== GRID DE PRODUTOS ===== */
+.produtos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espacamento-md);
+}
+
+/* Mobile: card horizontal */
+.produto-card {
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.produto-card:hover,
+.produto-card:focus-within {
+    background-color: var(--superficie-alta);
+    border-color: var(--tomate);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.produto-card-link {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: inherit;
+    min-height: 112px;
+}
+
+.produto-imagem-wrapper {
+    position: relative;
+    flex: 0 0 112px;
+    width: 112px;
+    height: 112px;
+    background-color: var(--queijo-suave);
     overflow: hidden;
 }
 
-.produto-imagem img {
+.produto-imagem-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.imagem-placeholder {
-    color: #666;
-    font-size: 0.9rem;
+.produto-card:hover .produto-imagem-wrapper img {
+    transform: scale(1.05);
+}
+
+.produto-sem-imagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0.75rem;
+    color: var(--texto-suave);
     text-align: center;
-    padding: 1rem;
+    padding: var(--espacamento-sm);
 }
 
-.produto-info {
-    padding: 1rem;
-}
-
-.produto-info h3 {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.descricao {
-    font-size: 0.85rem;
-    color: #bbb;
-    margin-bottom: 0.75rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.etiquetas {
+/* Selos no canto da imagem */
+.produto-selos {
+    position: absolute;
+    top: var(--espacamento-sm);
+    left: var(--espacamento-sm);
+    right: var(--espacamento-sm);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 0.75rem;
+    gap: var(--espacamento-xs);
+    pointer-events: none;
 }
 
-.etiqueta {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+.selo {
+    pointer-events: auto;
+    font-family: var(--fonte-corpo);
     font-weight: 600;
+    font-size: 0.625rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: var(--raio-sm);
+    line-height: 1.2;
 }
 
-.etiqueta.vegetariana {
-    background-color: #1b5e20;
-    color: #81c784;
+.selo.mais-pedida {
+    background-color: var(--queijo);
+    color: var(--texto-escuro);
 }
 
-.etiqueta.picante {
-    background-color: #b71c1c;
-    color: #ef9a9a;
+.selo.vegetariana {
+    background-color: var(--manjericao);
+    color: #fff;
 }
 
-.etiqueta.mais-pedida {
-    background-color: #e65100;
-    color: #ffb74d;
+.selo.picante {
+    background-color: var(--tomate-suave);
+    color: var(--tomate-claro);
 }
 
-.preco {
-    font-size: 1.25rem;
+/* Info do produto */
+.produto-info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--espacamento-md);
+    min-width: 0;
+}
+
+.produto-nome {
+    font-family: var(--fonte-titulo);
     font-weight: 700;
-    color: #c41e3a;
+    font-size: 1.0625rem;
+    color: var(--texto);
+    margin-bottom: var(--espacamento-xs);
+    line-height: 1.3;
+}
+
+.produto-descricao {
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: var(--espacamento-sm);
+    flex: 1 1 auto;
+}
+
+.produto-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espacamento-sm);
+    margin-top: auto;
+    padding-top: var(--espacamento-sm);
+    border-top: 1px solid var(--borda);
+}
+
+.produto-preco {
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--tomate-claro);
+    white-space: nowrap;
+}
+
+.btn-adicionar {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    min-height: 44px;
+    padding: var(--espacamento-sm) var(--espacamento-md);
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #fff;
+    background-color: var(--tomate);
+    border: none;
+    border-radius: var(--raio-pill);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    white-space: nowrap;
+}
+
+.btn-adicionar:hover {
+    background-color: var(--tomate-escuro);
+}
+
+.btn-adicionar:active {
+    transform: scale(0.98);
+}
+
+.btn-adicionar:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+/* ===== RESPONSIVO ===== */
+/* Tablet: 2 colunas, card vertical */
+@media (min-width: 600px) {
+    .produtos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .produto-card-link {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .produto-imagem-wrapper {
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .produto-selos {
+        top: var(--espacamento-sm);
+        left: var(--espacamento-sm);
+        right: var(--espacamento-sm);
+        bottom: auto;
+    }
+}
+
+/* Desktop: 3 colunas */
+@media (min-width: 1024px) {
+    .produtos-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Large desktop: 4 colunas */
+@media (min-width: 1280px) {
+    .produtos-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Ajuste header/chips em telas maiores */
+@media (min-width: 768px) {
+    .header-conteudo {
+        padding: 0 var(--espacamento-lg);
+    }
+    
+    .categorias-lista {
+        padding: 0 var(--espacamento-lg);
+    }
 }

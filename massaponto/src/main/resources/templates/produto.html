@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${produto.nome} + ' - Massa & Ponto'">Produto - Massa & Ponto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>Massa & Ponto</h1>
+        <p class="subtitle">Pizzaria Artesanal</p>
+    </header>
+
+    <main>
+        <article class="produto-detalhe">
+            <div class="produto-imagem-grande">
+                <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}">
+                <div th:unless="${produto.imagemUrl}" class="imagem-placeholder">Sem imagem</div>
+            </div>
+
+            <div class="produto-info-detalhe">
+                <h2 th:text="${produto.nome}"></h2>
+
+                <div class="etiquetas">
+                    <span th:if="${produto.vegetariana}" class="etiqueta vegetariana">Vegetariana</span>
+                    <span th:if="${produto.picante}" class="etiqueta picante">Picante</span>
+                    <span th:if="${produto.maisPedida}" class="etiqueta mais-pedida">Mais pedida</span>
+                </div>
+
+                <p class="descricao-detalhe" th:text="${produto.descricao}"></p>
+
+                <div class="preco-detalhe" th:text="${produto.precoFormatado}"></div>
+
+                <form method="post" action="#" class="form-adicionar">
+                    <div class="campo-observacao">
+                        <label for="observacao">Observações (opcional)</label>
+                        <textarea id="observacao" name="observacao" rows="4" placeholder="Ex: sem cebola, borda recheada, bem assada..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-adicionar">Adicionar à sacola</button>
+                </form>
+
+                <a href="/" class="btn-voltar">Voltar ao cardápio</a>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
