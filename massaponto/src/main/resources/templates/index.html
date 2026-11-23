@@ -6,7 +6,7 @@
     <title>Massa & Ponto - Pizzaria Artesanal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -38,7 +38,7 @@
             <h2 id="titulo-mais-pedidas" class="secao-titulo">Mais pedidas</h2>
             <div class="produtos-grid">
                 <article class="produto-card" th:each="produto : ${maisPedidas}">
-                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" aria-label th:title="${produto.nome}">
+                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" th:attr="aria-label=${produto.nome}, title=${produto.nome}">
                         <div class="produto-imagem-wrapper">
                             <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}" loading="lazy">
                             <div th:unless="${produto.imagemUrl}" class="produto-sem-imagem">Sem imagem</div>
@@ -66,7 +66,7 @@
             <h2 id="titulo-pizzas-salgadas" class="secao-titulo">Pizzas Salgadas</h2>
             <div class="produtos-grid">
                 <article class="produto-card" th:each="produto : ${pizzasSalgadas}">
-                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" aria-label th:title="${produto.nome}">
+                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" th:attr="aria-label=${produto.nome}, title=${produto.nome}">
                         <div class="produto-imagem-wrapper">
                             <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}" loading="lazy">
                             <div th:unless="${produto.imagemUrl}" class="produto-sem-imagem">Sem imagem</div>
@@ -94,7 +94,7 @@
             <h2 id="titulo-pizzas-doces" class="secao-titulo">Pizzas Doces</h2>
             <div class="produtos-grid">
                 <article class="produto-card" th:each="produto : ${pizzasDoces}">
-                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" aria-label th:title="${produto.nome}">
+                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" th:attr="aria-label=${produto.nome}, title=${produto.nome}">
                         <div class="produto-imagem-wrapper">
                             <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}" loading="lazy">
                             <div th:unless="${produto.imagemUrl}" class="produto-sem-imagem">Sem imagem</div>
@@ -122,7 +122,7 @@
             <h2 id="titulo-bebidas" class="secao-titulo">Bebidas</h2>
             <div class="produtos-grid">
                 <article class="produto-card" th:each="produto : ${bebidas}">
-                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" aria-label th:title="${produto.nome}">
+                    <a th:href="@{/produto/{id}(id=${produto.id})}" class="produto-card-link" th:attr="aria-label=${produto.nome}, title=${produto.nome}">
                         <div class="produto-imagem-wrapper">
                             <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}" loading="lazy">
                             <div th:unless="${produto.imagemUrl}" class="produto-sem-imagem">Sem imagem</div>

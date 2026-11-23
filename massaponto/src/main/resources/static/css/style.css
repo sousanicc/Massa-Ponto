@@ -59,6 +59,21 @@ html {
     font-size: 16px;
 }
 
+/* Respeitar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 body {
     font-family: var(--fonte-corpo);
     font-weight: 400;
@@ -129,7 +144,9 @@ img {
     z-index: 100;
     background-color: var(--superficie);
     border-bottom: 1px solid var(--borda);
-    padding: var(--espacamento-md) var(--espacamento-lg);
+    height: var(--header-altura);
+    display: flex;
+    align-items: center;
 }
 
 .header-conteudo {
@@ -184,7 +201,9 @@ img {
     z-index: 90;
     background-color: var(--fundo);
     border-bottom: 1px solid var(--borda);
-    padding: var(--espacamento-sm) var(--espacamento-lg);
+    height: var(--chips-altura);
+    display: flex;
+    align-items: center;
 }
 
 .categorias-lista {
@@ -246,7 +265,7 @@ img {
     gap: var(--espacamento-md);
 }
 
-/* Mobile: card horizontal */
+/* Mobile: card horizontal (foto à direita) */
 .produto-card {
     background-color: var(--superficie);
     border: 1px solid var(--borda);
@@ -277,6 +296,12 @@ img {
     height: 112px;
     background-color: var(--queijo-suave);
     overflow: hidden;
+    order: 2; /* foto à direita no mobile */
+}
+
+.produto-info {
+    order: 1; /* info à esquerda no mobile */
+    min-width: 0;
 }
 
 .produto-imagem-wrapper img {
@@ -473,4 +498,198 @@ img {
     .categorias-lista {
         padding: 0 var(--espacamento-lg);
     }
+}
+
+/* ===== PÁGINA DE DETALHES DO PRODUTO ===== */
+.produto-detalhe {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espacamento-lg);
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .produto-detalhe {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.produto-imagem-grande {
+    position: relative;
+    background-color: var(--queijo-suave);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--borda);
+}
+
+.produto-imagem-grande img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.produto-imagem-grande .produto-sem-imagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    text-align: center;
+    padding: var(--espacamento-md);
+}
+
+.produto-imagem-grande .produto-selos {
+    position: absolute;
+    top: var(--espacamento-md);
+    left: var(--espacamento-md);
+    right: var(--espacamento-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacamento-xs);
+    pointer-events: none;
+}
+
+.produto-imagem-grande .selo {
+    pointer-events: auto;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+}
+
+.produto-info-detalhe {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-md);
+}
+
+.produto-nome-detalhe {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    color: var(--texto);
+    line-height: 1.2;
+}
+
+.etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacamento-xs);
+}
+
+.etiqueta {
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: var(--raio-sm);
+    line-height: 1.2;
+}
+
+.etiqueta.mais-pedida {
+    background-color: var(--queijo);
+    color: var(--texto-escuro);
+}
+
+.etiqueta.vegetariana {
+    background-color: var(--manjericao);
+    color: #fff;
+}
+
+.etiqueta.picante {
+    background-color: var(--tomate-suave);
+    color: var(--tomate-claro);
+}
+
+.descricao-detalhe {
+    font-size: 1rem;
+    color: var(--texto-suave);
+    line-height: 1.7;
+}
+
+.preco-detalhe {
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-variant-numeric: tabular-nums;
+    color: var(--tomate-claro);
+}
+
+.campo-observacao {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-xs);
+}
+
+.campo-observacao label {
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--texto);
+}
+
+.campo-observacao textarea {
+    width: 100%;
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-sm);
+    padding: var(--espacamento-sm) var(--espacamento-md);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo-observacao textarea:focus {
+    outline: none;
+    border-color: var(--tomate);
+    box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.2);
+}
+
+.campo-observacao textarea::placeholder {
+    color: var(--texto-suave);
+    opacity: 0.7;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--espacamento-sm) var(--espacamento-md);
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--tomate-claro);
+    background-color: transparent;
+    border: 1px solid var(--tomate-claro);
+    border-radius: var(--raio-pill);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: var(--tomate);
+    color: #fff;
+    border-color: var(--tomate);
+}
+
+.btn-voltar:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+/* Botão desativado */
+.btn-adicionar:disabled {
+    background-color: var(--superficie-alta);
+    color: var(--texto-suave);
+    border-color: var(--borda);
+    cursor: not-allowed;
+    opacity: 0.6;
 }
