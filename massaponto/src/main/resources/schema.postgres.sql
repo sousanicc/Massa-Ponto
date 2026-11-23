@@ -1,15 +1,15 @@
-
 CREATE TABLE IF NOT EXISTS produto (
     id SERIAL PRIMARY KEY,
     categoria VARCHAR(20) NOT NULL
         CHECK (categoria IN ('PIZZA_SALGADA', 'PIZZA_DOCE', 'BEBIDA')),
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL UNIQUE,
     descricao TEXT NOT NULL,
     imagem_url TEXT,
     preco_centavos INTEGER NOT NULL,
     vegetariana BOOLEAN NOT NULL DEFAULT FALSE,
     picante BOOLEAN NOT NULL DEFAULT FALSE,
-    mais_pedida BOOLEAN NOT NULL DEFAULT FALSE
+    mais_pedida BOOLEAN NOT NULL DEFAULT FALSE,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS pedido (
