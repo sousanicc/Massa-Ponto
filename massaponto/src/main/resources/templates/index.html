@@ -1,9 +1,84 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Massa &amp; Ponto</title>
+    <title>Massa & Ponto</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Massa &amp; Ponto</h1>
+    <header>
+        <h1>Massa & Ponto</h1>
+        <p class="subtitle">Pizzaria Artesanal</p>
+    </header>
+
+    <main>
+        <!-- Pizzas Salgadas -->
+        <section class="categoria" id="pizzas-salgadas">
+            <h2>Pizzas Salgadas</h2>
+            <div class="produtos-grid">
+                <article class="produto-card" th:each="produto : ${pizzasSalgadas}">
+                    <div class="produto-imagem">
+                        <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}">
+                        <div th:unless="${produto.imagemUrl}" class="imagem-placeholder">Sem imagem</div>
+                    </div>
+                    <div class="produto-info">
+                        <h3 th:text="${produto.nome}"></h3>
+                        <p class="descricao" th:text="${produto.descricao}"></p>
+                        <div class="etiquetas">
+                            <span th:if="${produto.vegetariana}" class="etiqueta vegetariana">Vegetariana</span>
+                            <span th:if="${produto.picante}" class="etiqueta picante">Picante</span>
+                            <span th:if="${produto.maisPedida}" class="etiqueta mais-pedida">Mais pedida</span>
+                        </div>
+                        <div class="preco" th:text="${produto.precoFormatado}"></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Pizzas Doces -->
+        <section class="categoria" id="pizzas-doces">
+            <h2>Pizzas Doces</h2>
+            <div class="produtos-grid">
+                <article class="produto-card" th:each="produto : ${pizzasDoces}">
+                    <div class="produto-imagem">
+                        <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}">
+                        <div th:unless="${produto.imagemUrl}" class="imagem-placeholder">Sem imagem</div>
+                    </div>
+                    <div class="produto-info">
+                        <h3 th:text="${produto.nome}"></h3>
+                        <p class="descricao" th:text="${produto.descricao}"></p>
+                        <div class="etiquetas">
+                            <span th:if="${produto.vegetariana}" class="etiqueta vegetariana">Vegetariana</span>
+                            <span th:if="${produto.picante}" class="etiqueta picante">Picante</span>
+                            <span th:if="${produto.maisPedida}" class="etiqueta mais-pedida">Mais pedida</span>
+                        </div>
+                        <div class="preco" th:text="${produto.precoFormatado}"></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Bebidas -->
+        <section class="categoria" id="bebidas">
+            <h2>Bebidas</h2>
+            <div class="produtos-grid">
+                <article class="produto-card" th:each="produto : ${bebidas}">
+                    <div class="produto-imagem">
+                        <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}">
+                        <div th:unless="${produto.imagemUrl}" class="imagem-placeholder">Sem imagem</div>
+                    </div>
+                    <div class="produto-info">
+                        <h3 th:text="${produto.nome}"></h3>
+                        <p class="descricao" th:text="${produto.descricao}"></p>
+                        <div class="etiquetas">
+                            <span th:if="${produto.vegetariana}" class="etiqueta vegetariana">Vegetariana</span>
+                            <span th:if="${produto.picante}" class="etiqueta picante">Picante</span>
+                            <span th:if="${produto.maisPedida}" class="etiqueta mais-pedida">Mais pedida</span>
+                        </div>
+                        <div class="preco" th:text="${produto.precoFormatado}"></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
