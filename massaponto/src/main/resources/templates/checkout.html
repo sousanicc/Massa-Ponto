@@ -19,11 +19,12 @@
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
             <nav class="header-nav" aria-label="Navegação principal">
-                <a href="/sacola" class="header-sacola" aria-label="Ver sacola">
+                <a href="/sacola" class="header-btn header-sacola" aria-label="Ver sacola">
                     <span class="header-sacola-icone" aria-hidden="true">🛒</span>
-                    <span class="header-sacola-quantidade" th:text="${sacola.quantidadeTotal}">0</span>
+                    <span class="header-sacola-texto">Sacola</span>
+                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
                 </a>
-                <a href="/pedidos" class="header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+                <a href="/pedidos" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
             </nav>
         </div>
     </header>
@@ -32,7 +33,7 @@
         <section class="secao-checkout" aria-labelledby="titulo-checkout">
             <h2 id="titulo-checkout" class="secao-titulo">Finalizar pedido</h2>
 
-            <div th:if="${param.erro}" class="checkout-erro" th:text="${param.erro}"></div>
+            <div th:if="${erro}" class="checkout-erro" th:text="${erro}"></div>
 
             <form method="post" th:action="@{/checkout}" class="checkout-form">
                 <div class="checkout-grid">
@@ -43,20 +44,20 @@
                         <div class="campo">
                             <label for="nomeCliente">Nome completo <span class="obrigatorio">*</span></label>
                             <input type="text" id="nomeCliente" name="nomeCliente" required
-                                   th:value="${param.nomeCliente}">
+                                   th:value="${nomeCliente}">
                         </div>
 
                         <div class="campo">
                             <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
                             <input type="tel" id="telefone" name="telefone" required
-                                   th:value="${param.telefone}" placeholder="(11) 99999-9999">
+                                   th:value="${telefone}" placeholder="(11) 99999-9999">
                         </div>
 
                         <div class="campo campo-endereco">
                             <label for="endereco">Endereço completo <span class="obrigatorio">*</span></label>
                             <textarea id="endereco" name="endereco" rows="3" required
                                       placeholder="Rua, número, complemento, bairro, CEP"
-                                      th:text="${param.endereco}"></textarea>
+                                      th:text="${endereco}"></textarea>
                         </div>
                     </fieldset>
 
@@ -65,21 +66,24 @@
                         <legend>Forma de pagamento</legend>
                         <div class="pagamento-opcoes" role="radiogroup" aria-label="Escolha a forma de pagamento">
                             <label class="pagamento-opcao">
-                                <input type="radio" name="formaPagamento" value="PIX" checked>
+                                <input type="radio" name="formaPagamento" value="PIX"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).PIX}">
                                 <span class="pagamento-label">
                                     <span class="pagamento-icone">💠</span>
                                     <span>Pix</span>
                                 </span>
                             </label>
                             <label class="pagamento-opcao">
-                                <input type="radio" name="formaPagamento" value="CARTAO">
+                                <input type="radio" name="formaPagamento" value="CARTAO"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).CARTAO}">
                                 <span class="pagamento-label">
                                     <span class="pagamento-icone">💳</span>
                                     <span>Cartão</span>
                                 </span>
                             </label>
                             <label class="pagamento-opcao">
-                                <input type="radio" name="formaPagamento" value="DINHEIRO">
+                                <input type="radio" name="formaPagamento" value="DINHEIRO"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).DINHEIRO}">
                                 <span class="pagamento-label">
                                     <span class="pagamento-icone">💵</span>
                                     <span>Dinheiro na entrega</span>

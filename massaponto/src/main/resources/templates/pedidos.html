@@ -19,11 +19,12 @@
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
             <nav class="header-nav" aria-label="Navegação principal">
-                <a href="/sacola" class="header-sacola" aria-label="Ver sacola">
+                <a href="/sacola" class="header-btn header-sacola" aria-label="Ver sacola">
                     <span class="header-sacola-icone" aria-hidden="true">🛒</span>
-                    <span class="header-sacola-quantidade" th:text="${sacola.quantidadeTotal}">0</span>
+                    <span class="header-sacola-texto">Sacola</span>
+                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
                 </a>
-                <a href="/pedidos" class="header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+                <a href="/pedidos" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
             </nav>
         </div>
     </header>
@@ -55,7 +56,7 @@
 
                         <ul class="pedido-card-itens">
                             <li class="pedido-card-item" th:each="item : ${pedido.itens}">
-                                <span class="pedido-card-item-nome" th:text="${item.produto.nome}"></span>
+                                <span class="pedido-card-item-nome" th:text="${item.produto?.nome ?: 'Produto removido'}"></span>
                                 <span class="pedido-card-item-qtd" th:text="${item.quantidade} + 'x'"></span>
                                 <span class="pedido-card-item-subtotal" th:text="${item.subtotalFormatado}"></span>
                             </li>

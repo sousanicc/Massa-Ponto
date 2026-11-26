@@ -19,11 +19,12 @@
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
             <nav class="header-nav" aria-label="Navegação principal">
-                <a href="/sacola" class="header-sacola" aria-label="Ver sacola">
+                <a href="/sacola" class="header-btn header-sacola" aria-label="Ver sacola">
                     <span class="header-sacola-icone" aria-hidden="true">🛒</span>
-                    <span class="header-sacola-quantidade" th:text="${sacola.quantidadeTotal}">0</span>
+                    <span class="header-sacola-texto">Sacola</span>
+                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
                 </a>
-                <a href="/pedidos" class="header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+                <a href="/pedidos" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
             </nav>
         </div>
     </header>
@@ -47,7 +48,7 @@
                 <ul class="pedido-lista" role="list">
                     <li class="pedido-item" th:each="item : ${pedido.itens}">
                         <div class="pedido-item-info">
-                            <span class="pedido-item-nome" th:text="${item.produto.nome}">Nome do produto</span>
+                            <span class="pedido-item-nome" th:text="${item.produto?.nome ?: 'Produto removido'}">Nome do produto</span>
                             <span class="pedido-item-qtd" th:text="${item.quantidade} + 'x'">1x</span>
                             <span class="pedido-item-obs" th:if="${item.observacao}" th:text="'Obs: ' + ${item.observacao}"></span>
                         </div>

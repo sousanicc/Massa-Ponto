@@ -32,6 +32,7 @@ public class CheckoutController {
                                  @RequestParam String telefone,
                                  @RequestParam String endereco,
                                  @RequestParam FormaPagamento formaPagamento,
+                                 Model model,
                                  RedirectAttributes redirectAttributes) {
 
         // Validação simples sem DTO
@@ -41,7 +42,14 @@ public class CheckoutController {
         else if (endereco == null || endereco.isBlank()) erro = "Endereço é obrigatório";
 
         if (erro != null) {
-            return "redirect:/checkout?erro=" + erro;
+            // Retorna a view diretamente com os dados preenchidos
+            model.addAttribute("erro", erro);
+            model.addAttribute("nomeCliente", nomeCliente);
+            model.addAttribute("telefone", telefone);
+            model.addAttribute("endereco", endereco);
+            model.addAttribute("formaPagamento", formaPagamento);
+            model.addAttribute("sacola", sacola);
+            return "checkout";
         }
 
         try {
@@ -57,12 +65,18 @@ public class CheckoutController {
             sacola.limpar();
 
             redirectAttributes.addFlashAttribute("comprovante", comprovante);
-            redirectAttributes.addFlashAttribute("pedido", pedido);
 
             return "redirect:/pedido/" + pedido.getId();
 
         } catch (IllegalStateException | IllegalArgumentException e) {
-            return "redirect:/checkout?erro=" + e.getMessage();
+            // Em caso de erro de negócio, retorna view com erro e dados
+            model.addAttribute("erro", e.getMessage());
+            model.addAttribute("nomeCliente", nomeCliente);
+            model.addAttribute("telefone", telefone);
+            model.addAttribute("endereco", endereco);
+            model.addAttribute("formaPagamento", formaPagamento);
+            model.addAttribute("sacola", sacola);
+            return "checkout";
         }
     }
 }

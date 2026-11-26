@@ -151,7 +151,9 @@ img {
 
 .header-conteudo {
     max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 var(--espacamento-md);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -164,6 +166,7 @@ img {
     gap: 2px;
     text-decoration: none;
     color: var(--texto);
+    flex-shrink: 0;
 }
 
 .logo:hover {
@@ -198,23 +201,44 @@ img {
 .header-nav {
     display: flex;
     align-items: center;
-    gap: var(--espacamento-md);
+    gap: var(--espacamento-sm);
 }
 
-.header-sacola {
+/* Estilo base de pílula para ambos os botões */
+.header-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: var(--espacamento-xs);
-    width: 44px;
     height: 44px;
-    background-color: var(--fundo);
+    padding: 0 var(--espacamento-md);
+    background-color: var(--superficie-alta);
     border: 1px solid var(--borda);
     border-radius: var(--raio-pill);
-    color: var(--tomate-claro);
+    color: var(--texto-suave);
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
     text-decoration: none;
+    white-space: nowrap;
     transition: all 0.2s ease;
     flex-shrink: 0;
+}
+
+.header-btn:hover {
+    color: var(--tomate-claro);
+    border-color: var(--tomate-claro);
+    background-color: var(--fundo);
+}
+
+.header-btn:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+/* Botão Sacola */
+.header-sacola {
+    color: var(--tomate-claro);
+    border-color: var(--tomate-claro);
 }
 
 .header-sacola:hover {
@@ -223,14 +247,13 @@ img {
     border-color: var(--tomate);
 }
 
-.header-sacola:focus-visible {
-    outline: 3px solid var(--queijo);
-    outline-offset: 2px;
-}
-
 .header-sacola-icone {
     font-size: 1.25rem;
     line-height: 1;
+}
+
+.header-sacola-texto {
+    display: inline;
 }
 
 .header-sacola-quantidade {
@@ -239,35 +262,40 @@ img {
     font-size: 0.75rem;
     background-color: var(--tomate);
     color: #fff;
-    min-width: 18px;
-    height: 18px;
+    min-width: 20px;
+    height: 20px;
     border-radius: var(--raio-pill);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 4px;
+    padding: 0 6px;
 }
 
+/* Botão Pedidos */
 .header-pedidos {
-    font-family: var(--fonte-corpo);
-    font-weight: 500;
-    font-size: 0.875rem;
     color: var(--texto-suave);
-    text-decoration: none;
-    padding: var(--espacamento-xs) var(--espacamento-sm);
-    border-radius: var(--raio-pill);
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    border-color: var(--borda);
 }
 
 .header-pedidos:hover {
     color: var(--tomate-claro);
-    background-color: var(--superficie-alta);
+    border-color: var(--tomate-claro);
+    background-color: var(--fundo);
 }
 
-.header-pedidos:focus-visible {
-    outline: 3px solid var(--queijo);
-    outline-offset: 2px;
+/* Mobile: esconder texto "Sacola" em telas pequenas */
+@media (max-width: 480px) {
+    .header-sacola-texto {
+        display: none;
+    }
+    
+    .header-nav {
+        gap: var(--espacamento-xs);
+    }
+    
+    .header-btn {
+        padding: 0 var(--espacamento-sm);
+    }
 }
 
 /* ===== CATEGORIAS (CHIPS STICKY) ===== */
