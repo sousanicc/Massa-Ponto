@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <!-- Header sticky -->
+    <!-- Header sticky (sem link da sacola) -->
     <header class="header" role="banner">
         <div class="header-conteudo">
             <a href="/" class="logo" aria-label="Massa & Ponto - Página inicial">
@@ -22,22 +22,13 @@
         </div>
     </header>
 
-    <!-- Chips de categorias -->
-    <nav class="categorias" role="navigation" aria-label="Categorias do cardápio">
-        <div class="categorias-lista">
-            <a href="#mais-pedidas" class="categoria-chip">Mais pedidas</a>
-            <a href="#pizzas-salgadas" class="categoria-chip">Pizzas Salgadas</a>
-            <a href="#pizzas-doces" class="categoria-chip">Pizzas Doces</a>
-            <a href="#bebidas" class="categoria-chip">Bebidas</a>
-        </div>
-    </nav>
+    <!-- SEM chips de categorias na sacola -->
 
     <main class="principal">
         <section class="secao-sacola" aria-labelledby="titulo-sacola">
             <h2 id="titulo-sacola" class="secao-titulo">Sua sacola</h2>
 
             <div th:if="${sacola.vazia}">
-                <!-- Sacola vazia -->
                 <div class="sacola-vazia">
                     <p class="sacola-vazia-mensagem">Sua sacola está com fome 🍕</p>
                     <a href="/" class="btn-voltar">Voltar ao cardápio</a>
@@ -45,7 +36,6 @@
             </div>
 
             <div th:unless="${sacola.vazia}">
-                <!-- Lista de itens -->
                 <ul class="sacola-lista" role="list">
                     <li class="sacola-item" th:each="item, stat : ${sacola.itens}">
                         <div class="sacola-item-info">
@@ -55,8 +45,8 @@
                             
                             <div class="sacola-item-detalhes">
                                 <span class="sacola-item-quantidade">
-                                    <label for="qtd-${stat.index}" class="visually-hidden">Quantidade</label>
-                                    <input type="number" id="qtd-${stat.index}" name="quantidade" th:value="${item.quantidade}" min="1" max="99" class="input-quantidade-pequena" readonly>
+                                    <label th:for="|qtd-${stat.index}|" class="visually-hidden">Quantidade</label>
+                                    <input type="number" th:id="|qtd-${stat.index}|" name="quantidade" th:value="${item.quantidade}" min="1" max="99" class="input-quantidade-pequena" readonly aria-label="Quantidade">
                                 </span>
                                 <span class="sacola-item-preco" th:text="${item.precoUnitarioFormatado}"></span>
                                 <span class="sacola-item-subtotal" th:text="${item.subtotalFormatado}"></span>
@@ -65,12 +55,11 @@
 
                         <form method="post" th:action="@{/sacola/remover}" class="sacola-item-acao">
                             <input type="hidden" name="indice" th:value="${stat.index}">
-                            <button type="submit" class="btn-remover" aria-label th:title="Remover ${item.produto.nome}">Remover</button>
+                            <button type="submit" class="btn-remover" th:attr="aria-label=|Remover ${item.produto.nome}|, title=|Remover ${item.produto.nome}|">Remover</button>
                         </form>
                     </li>
                 </ul>
 
-                <!-- Total e ações -->
                 <div class="sacola-resumo">
                     <div class="sacola-total">
                         <span class="sacola-total-label">Total</span>
