@@ -19,6 +19,13 @@
                 <span class="logo-parte">Ponto</span>
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
+            <nav class="header-nav" aria-label="Navegação principal">
+                <a href="/sacola" class="header-sacola" aria-label="Ver sacola">
+                    <span class="header-sacola-icone" aria-hidden="true">🛒</span>
+                    <span class="header-sacola-quantidade" th:text="${sacola.quantidadeTotal}">0</span>
+                </a>
+                <a href="/pedidos" class="header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+            </nav>
         </div>
     </header>
 

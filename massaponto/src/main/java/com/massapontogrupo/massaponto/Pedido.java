@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class Pedido {
 
     @Column("total_centavos")
     private Integer totalCentavos;
+
+    @Column("forma_pagamento")
+    private FormaPagamento formaPagamento;
 
     @Transient
     private List<ItemPedido> itens = new ArrayList<>();
@@ -85,6 +89,14 @@ public class Pedido {
         this.totalCentavos = totalCentavos;
     }
 
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
     public List<ItemPedido> getItens() {
         return itens;
     }
@@ -104,5 +116,13 @@ public class Pedido {
         long reais = totalCentavos / 100;
         long centavos = totalCentavos % 100;
         return String.format("R$ %d,%02d", reais, centavos);
+    }
+
+    public String getCriadoEmFormatado() {
+        if (criadoEm == null) {
+            return "";
+        }
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return criadoEm.format(fmt);
     }
 }
