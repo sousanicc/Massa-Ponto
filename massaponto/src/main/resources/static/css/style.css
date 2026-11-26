@@ -693,3 +693,260 @@ img {
     cursor: not-allowed;
     opacity: 0.6;
 }
+
+/* ===== SACOLA ===== */
+.secao-sacola {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.sacola-vazia {
+    text-align: center;
+    padding: var(--espacamento-xl) var(--espacamento-md);
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+}
+
+.sacola-vazia-mensagem {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--texto-suave);
+    margin-bottom: var(--espacamento-lg);
+}
+
+.sacola-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-md);
+    margin-bottom: var(--espacamento-lg);
+}
+
+.sacola-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--espacamento-md);
+    align-items: start;
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    padding: var(--espacamento-md);
+}
+
+.sacola-item-info {
+    min-width: 0;
+}
+
+.sacola-item-nome {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--texto);
+    margin-bottom: var(--espacamento-xs);
+}
+
+.sacola-item-observacao {
+    font-size: 0.875rem;
+    color: var(--tomate-claro);
+    margin-bottom: var(--espacamento-sm);
+    font-style: italic;
+}
+
+.sacola-item-detalhes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espacamento-md);
+    font-size: 0.875rem;
+}
+
+.sacola-item-quantidade {
+    display: flex;
+    align-items: center;
+    gap: var(--espacamento-xs);
+}
+
+.input-quantidade-pequena {
+    width: 60px;
+    padding: var(--espacamento-xs) var(--espacamento-sm);
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-sm);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.sacola-item-preco {
+    color: var(--texto-suave);
+}
+
+.sacola-item-subtotal {
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--tomate-claro);
+}
+
+.sacola-item-acao {
+    flex-shrink: 0;
+}
+
+.btn-remover {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--superficie-alta);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-pill);
+    color: var(--tomate-claro);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-remover:hover {
+    background-color: var(--tomate);
+    color: #fff;
+    border-color: var(--tomate);
+}
+
+.btn-remover:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+.sacola-resumo {
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    padding: var(--espacamento-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-md);
+}
+
+@media (min-width: 600px) {
+    .sacola-resumo {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.sacola-total {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-xs);
+}
+
+@media (min-width: 600px) {
+    .sacola-total {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.sacola-total-label {
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+}
+
+.sacola-total-valor {
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-variant-numeric: tabular-nums;
+    color: var(--tomate-claro);
+}
+
+.sacola-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-sm);
+    width: 100%;
+}
+
+@media (min-width: 600px) {
+    .sacola-acoes {
+        flex-direction: row;
+        width: auto;
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Form no produto.html */
+.form-adicionar-sacola {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-md);
+    margin-top: var(--espacamento-md);
+}
+
+.campo-quantidade {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-xs);
+}
+
+.campo-quantidade label {
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--texto);
+}
+
+/* Input number estilizado (sem setas nativas, sem JS) */
+.input-quantidade,
+.input-quantidade-pequena {
+    width: 80px;
+    height: 44px;
+    padding: 0 var(--espacamento-md);
+    background-color: var(--fundo);
+    border: 2px solid var(--borda);
+    border-radius: var(--raio-sm);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-align: center;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    /* Esconder setas nativas */
+    -moz-appearance: textfield;
+}
+.input-quantidade::-webkit-outer-spin-button,
+.input-quantidade::-webkit-inner-spin-button,
+.input-quantidade-pequena::-webkit-outer-spin-button,
+.input-quantidade-pequena::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-quantidade:focus,
+.input-quantidade-pequena:focus {
+    outline: none;
+    border-color: var(--tomate);
+    box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.2);
+}
+
+/* Na sacola: readonly com mesmo visual */
+.input-quantidade-pequena[readonly] {
+    background-color: var(--superficie);
+    border-color: transparent;
+    color: var(--texto);
+    cursor: default;
+}
