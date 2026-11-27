@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS pedido (
     telefone VARCHAR(20) NOT NULL,
     endereco TEXT NOT NULL,
     criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    total_centavos INTEGER NOT NULL
+    total_centavos INTEGER NOT NULL,
+    forma_pagamento VARCHAR(20) NOT NULL CHECK (forma_pagamento IN ('PIX', 'CARTAO', 'DINHEIRO'))
 );
 
 CREATE TABLE IF NOT EXISTS item_pedido (

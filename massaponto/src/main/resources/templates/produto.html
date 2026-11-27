@@ -19,6 +19,14 @@
                 <span class="logo-parte">Ponto</span>
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
+            <nav class="header-nav" aria-label="Navegação principal">
+                <a href="/sacola" class="header-btn header-sacola" aria-label="Ver sacola">
+                    <span class="header-sacola-icone" aria-hidden="true">🛒</span>
+                    <span class="header-sacola-texto">Sacola</span>
+                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
+                </a>
+                <a href="/pedidos" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+            </nav>
         </div>
     </header>
 
@@ -57,12 +65,21 @@
 
                 <div class="preco-detalhe" th:text="${produto.precoFormatado}"></div>
 
-                <div class="campo-observacao">
-                    <label for="observacao">Observações (opcional)</label>
-                    <textarea id="observacao" name="observacao" rows="4" placeholder="Ex: sem cebola, borda recheada, bem assada..."></textarea>
-                </div>
+                <form method="post" th:action="@{/sacola/adicionar}" class="form-adicionar-sacola">
+                    <input type="hidden" name="produtoId" th:value="${produto.id}">
 
-                <button type="button" class="btn-adicionar" disabled>Adicionar à sacola (em breve)</button>
+                    <div class="campo-observacao">
+                        <label for="observacao">Observações (opcional)</label>
+                        <textarea id="observacao" name="observacao" rows="4" placeholder="Ex: sem cebola, borda recheada, bem assada..."></textarea>
+                    </div>
+
+                    <div class="campo-quantidade">
+                        <label for="quantidade">Quantidade</label>
+                        <input type="number" id="quantidade" name="quantidade" value="1" min="1" max="99" class="input-quantidade" required>
+                    </div>
+
+                    <button type="submit" class="btn-adicionar">Adicionar à sacola</button>
+                </form>
 
                 <a href="/" class="btn-voltar">Voltar ao cardápio</a>
             </div>

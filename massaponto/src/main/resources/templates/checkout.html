@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Massa & Ponto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="header-conteudo">
+            <a href="/" class="logo" aria-label="Massa & Ponto - Página inicial">
+                <span class="logo-parte">Massa</span>
+                <span class="logo-e">&</span>
+                <span class="logo-parte">Ponto</span>
+                <span class="logo-ponto" aria-hidden="true">.</span>
+            </a>
+            <nav class="header-nav" aria-label="Navegação principal">
+                <a href="/sacola" class="header-btn header-sacola" aria-label="Ver sacola">
+                    <span class="header-sacola-icone" aria-hidden="true">🛒</span>
+                    <span class="header-sacola-texto">Sacola</span>
+                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
+                </a>
+                <a href="/pedidos" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="principal">
+        <section class="secao-checkout" aria-labelledby="titulo-checkout">
+            <h2 id="titulo-checkout" class="secao-titulo">Finalizar pedido</h2>
+
+            <div th:if="${erro}" class="checkout-erro" th:text="${erro}"></div>
+
+            <form method="post" th:action="@{/checkout}" class="checkout-form">
+                <div class="checkout-grid">
+                    <!-- Dados do cliente -->
+                    <fieldset class="checkout-fieldset">
+                        <legend>Seus dados</legend>
+
+                        <div class="campo">
+                            <label for="nomeCliente">Nome completo <span class="obrigatorio">*</span></label>
+                            <input type="text" id="nomeCliente" name="nomeCliente" required
+                                   th:value="${nomeCliente}">
+                        </div>
+
+                        <div class="campo">
+                            <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
+                            <input type="tel" id="telefone" name="telefone" required
+                                   th:value="${telefone}" placeholder="(11) 99999-9999">
+                        </div>
+
+                        <div class="campo campo-endereco">
+                            <label for="endereco">Endereço completo <span class="obrigatorio">*</span></label>
+                            <textarea id="endereco" name="endereco" rows="3" required
+                                      placeholder="Rua, número, complemento, bairro, CEP"
+                                      th:text="${endereco}"></textarea>
+                        </div>
+                    </fieldset>
+
+                    <!-- Forma de pagamento -->
+                    <fieldset class="checkout-fieldset">
+                        <legend>Forma de pagamento</legend>
+                        <div class="pagamento-opcoes" role="radiogroup" aria-label="Escolha a forma de pagamento">
+                            <label class="pagamento-opcao">
+                                <input type="radio" name="formaPagamento" value="PIX"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).PIX}">
+                                <span class="pagamento-label">
+                                    <span class="pagamento-icone">💠</span>
+                                    <span>Pix</span>
+                                </span>
+                            </label>
+                            <label class="pagamento-opcao">
+                                <input type="radio" name="formaPagamento" value="CARTAO"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).CARTAO}">
+                                <span class="pagamento-label">
+                                    <span class="pagamento-icone">💳</span>
+                                    <span>Cartão</span>
+                                </span>
+                            </label>
+                            <label class="pagamento-opcao">
+                                <input type="radio" name="formaPagamento" value="DINHEIRO"
+                                       th:checked="${formaPagamento == T(com.massapontogrupo.massaponto.FormaPagamento).DINHEIRO}">
+                                <span class="pagamento-label">
+                                    <span class="pagamento-icone">💵</span>
+                                    <span>Dinheiro na entrega</span>
+                                </span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- Resumo do pedido -->
+                <aside class="checkout-resumo">
+                    <h3>Resumo do pedido</h3>
+                    <ul class="checkout-itens">
+                        <li class="checkout-item" th:each="item : ${sacola.itens}">
+                            <span class="checkout-item-nome" th:text="${item.produto.nome}"></span>
+                            <span class="checkout-item-qtd" th:text="${item.quantidade} + 'x'"></span>
+                            <span class="checkout-item-subtotal" th:text="${item.subtotalFormatado}"></span>
+                        </li>
+                    </ul>
+                    <div class="checkout-total">
+                        <span>Total</span>
+                        <span class="checkout-total-valor" th:text="${sacola.totalFormatado}"></span>
+                    </div>
+                    <button type="submit" class="btn-adicionar btn-checkout">Confirmar pedido</button>
+                    <a href="/sacola" class="btn-voltar">Voltar à sacola</a>
+                </aside>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
