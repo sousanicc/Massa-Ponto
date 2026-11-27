@@ -42,9 +42,11 @@ public class CheckoutController {
                                  RedirectAttributes redirectAttributes) {
 
         // Validação simples sem DTO
+        String telefoneLimpo = (telefone == null) ? "" : telefone.trim();
         String erro = null;
         if (nomeCliente == null || nomeCliente.isBlank()) erro = "Nome é obrigatório";
-        else if (telefone == null || telefone.isBlank()) erro = "Telefone é obrigatório";
+        else if (telefoneLimpo.isEmpty()) erro = "Telefone é obrigatório";
+        else if (!telefoneLimpo.matches("\\d{11}")) erro = "Telefone deve conter exatamente 11 dígitos numéricos (DDD + número)";
         else if (endereco == null || endereco.isBlank()) erro = "Endereço é obrigatório";
 
         if (erro != null) {
@@ -60,7 +62,7 @@ public class CheckoutController {
 
         try {
             Pedido pedido = pedidoService.finalizar(
-                    nomeCliente.trim(), telefone.trim(), endereco.trim(),
+                    nomeCliente.trim(), telefoneLimpo, endereco.trim(),
                     formaPagamento, sacola
             );
 

@@ -6,7 +6,7 @@
 
     <!-- SEM chips de categorias na sacola -->
 
-    <main class="principal">
+    <main class="principal container-pagina">
         <section class="secao-sacola" aria-labelledby="titulo-sacola">
             <h2 id="titulo-sacola" class="secao-titulo">Sua sacola</h2>
 
@@ -35,10 +35,15 @@
                             </div>
                         </div>
 
-                        <form method="post" th:action="@{/sacola/remover}" class="sacola-item-acao">
-                            <input type="hidden" name="indice" th:value="${stat.index}">
-                            <button type="submit" class="btn-remover" th:attr="aria-label=|Remover ${item.produto.nome}|, title=|Remover ${item.produto.nome}|">Remover</button>
-                        </form>
+                        <div class="sacola-item-acoes">
+                            <a th:href="@{/sacola/editar/{indice}(indice=${stat.index})}"
+                               class="btn-editar"
+                               th:attr="aria-label=|Editar ${item.produto.nome}|, title=|Editar ${item.produto.nome}|">Editar</a>
+                            <form method="post" th:action="@{/sacola/remover}" class="sacola-item-acao">
+                                <input type="hidden" name="indice" th:value="${stat.index}">
+                                <button type="submit" class="btn-remover" th:attr="aria-label=|Remover ${item.produto.nome}|, title=|Remover ${item.produto.nome}|">Remover</button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
 

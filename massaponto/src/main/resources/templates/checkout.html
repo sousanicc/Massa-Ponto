@@ -4,7 +4,7 @@
 <body>
     <header th:replace="~{fragments/cabecalho :: cabecalho}"></header>
 
-    <main class="principal">
+    <main class="principal container-pagina">
         <section class="secao-checkout" aria-labelledby="titulo-checkout">
             <h2 id="titulo-checkout" class="secao-titulo">Finalizar pedido</h2>
 
@@ -25,7 +25,10 @@
                         <div class="campo">
                             <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
                             <input type="tel" id="telefone" name="telefone" required
-                                   th:value="${telefone}" placeholder="(11) 99999-9999">
+                                   inputmode="numeric" maxlength="11" pattern="[0-9]{11}"
+                                   title="DDD + número, só números (11 dígitos)"
+                                   placeholder="11999999999"
+                                   th:value="${telefone}">
                         </div>
 
                         <div class="campo campo-endereco">

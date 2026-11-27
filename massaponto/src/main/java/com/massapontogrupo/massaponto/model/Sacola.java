@@ -31,20 +31,14 @@ public class Sacola {
         if (produto == null || !produto.getAtivo()) {
             return;
         }
-        if (quantidade < 1) {
-            quantidade = 1;
-        } else if (quantidade > QUANTIDADE_MAXIMA) {
-            quantidade = QUANTIDADE_MAXIMA;
-        }
-
-        // Normaliza observação para comparação (null e vazio são iguais)
-        String obsNormalizada = (observacao == null || observacao.isBlank()) ? null : observacao.trim();
+        int qtdNormalizada = normalizarQuantidade(quantidade);
+        String obsNormalizada = normalizarObservacao(observacao);
 
         // Procura item existente com mesmo produto e mesma observação
         for (ItemPedido item : itens) {
-            String obsItem = (item.getObservacao() == null || item.getObservacao().isBlank()) ? null : item.getObservacao().trim();
-            if (Objects.equals(item.getProdutoId(), produto.getId()) && Objects.equals(obsItem, obsNormalizada)) {
-                item.setQuantidade(Math.min(QUANTIDADE_MAXIMA, item.getQuantidade() + quantidade));
+            if (Objects.equals(item.getProdutoId(), produto.getId())
+                    && Objects.equals(normalizarObservacao(item.getObservacao()), obsNormalizada)) {
+                item.setQuantidade(normalizarQuantidade(item.getQuantidade() + qtdNormalizada));
                 return;
             }
         }
@@ -53,10 +47,45 @@ public class Sacola {
         ItemPedido novo = new ItemPedido();
         novo.setProdutoId(produto.getId());
         novo.setProduto(produto); // @Transient, só para exibição
-        novo.setQuantidade(quantidade);
+        novo.setQuantidade(qtdNormalizada);
         novo.setObservacao(obsNormalizada);
         novo.setPrecoUnitarioCentavos(produto.getPrecoCentavos()); // preço do banco, nunca do formulário
         itens.add(novo);
+    }
+
+    // Atualiza observação e quantidade de um item existente; mescla se ficar igual a outro
+    public void atualizar(int indice, String observacao, int quantidade) {
+        if (indice < 0 || indice >= itens.size()) {
+            return;
+        }
+
+        int novaQuantidade = normalizarQuantidade(quantidade);
+        String obsNormalizada = normalizarObservacao(observacao);
+        ItemPedido itemEditado = itens.get(indice);
+
+        for (int i = 0; i < itens.size(); i++) {
+            if (i == indice) {
+                continue;
+            }
+            ItemPedido outro = itens.get(i);
+            if (Objects.equals(outro.getProdutoId(), itemEditado.getProdutoId())
+                    && Objects.equals(normalizarObservacao(outro.getObservacao()), obsNormalizada)) {
+                outro.setQuantidade(normalizarQuantidade(outro.getQuantidade() + novaQuantidade));
+                itens.remove(indice);
+                return;
+            }
+        }
+
+        itemEditado.setObservacao(obsNormalizada);
+        itemEditado.setQuantidade(novaQuantidade);
+    }
+
+    private String normalizarObservacao(String observacao) {
+        return (observacao == null || observacao.isBlank()) ? null : observacao.trim();
+    }
+
+    private int normalizarQuantidade(int quantidade) {
+        return Math.max(1, Math.min(QUANTIDADE_MAXIMA, quantidade));
     }
 
     // Remove item por índice na lista (mais simples para o template)
