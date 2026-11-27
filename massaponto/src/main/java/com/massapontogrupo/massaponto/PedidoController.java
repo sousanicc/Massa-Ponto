@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
+
 @Controller
 public class PedidoController {
 
@@ -17,12 +19,12 @@ public class PedidoController {
     // Confirmação do pedido
     @GetMapping("/pedido/{id}")
     public String confirmacao(@PathVariable Long id, Model model) {
-        return pedidoService.buscarComItens(id)
-                .map(pedido -> {
-                    model.addAttribute("pedido", pedido);
-                    return "pedido";
-                })
-                .orElse("redirect:/");
+        Optional<Pedido> pedido = pedidoService.buscarComItens(id);
+        if (pedido.isEmpty()) {
+            return "redirect:/";
+        }
+        model.addAttribute("pedido", pedido.get());
+        return "pedido";
     }
 
     // Histórico de pedidos

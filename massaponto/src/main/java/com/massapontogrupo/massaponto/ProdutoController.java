@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
+
 @Controller
 public class ProdutoController {
 
@@ -16,13 +18,12 @@ public class ProdutoController {
 
     @GetMapping("/produto/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
-        return produtoRepository.findById(id)
-                .filter(Produto::getAtivo)
-                .map(produto -> {
-                    model.addAttribute("produto", produto);
-                    return "produto";
-                })
-                .orElse("redirect:/");
+        Optional<Produto> produto = produtoRepository.findById(id);
+        if (produto.isEmpty() || !produto.get().getAtivo()) {
+            return "redirect:/";
+        }
+        model.addAttribute("produto", produto.get());
+        return "produto";
     }
 
 }

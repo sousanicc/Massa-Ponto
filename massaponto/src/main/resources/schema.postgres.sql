@@ -6,9 +6,6 @@ CREATE TABLE IF NOT EXISTS produto (
     descricao TEXT NOT NULL,
     imagem_url TEXT,
     preco_centavos INTEGER NOT NULL,
-    vegetariana BOOLEAN NOT NULL DEFAULT FALSE,
-    picante BOOLEAN NOT NULL DEFAULT FALSE,
-    mais_pedida BOOLEAN NOT NULL DEFAULT FALSE,
     ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 

@@ -2,17 +2,17 @@
 -- 8 pizzas salgadas, 2 pizzas doces, 2 refrigerantes (350 ml)
 -- Preços em centavos
 
-INSERT INTO produto (categoria, nome, descricao, imagem_url, preco_centavos, vegetariana, picante, mais_pedida, ativo) VALUES
-('PIZZA_SALGADA', 'Margherita', 'Molho de tomate, mussarela de búfala, manjericão fresco e azeite', 'https://via.placeholder.com/400x300?text=Margherita', 4500, true, false, true, true),
-('PIZZA_SALGADA', 'Calabresa', 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e orégano', 'https://via.placeholder.com/400x300?text=Calabresa', 4800, false, false, true, true),
-('PIZZA_SALGADA', 'Pepperoni', 'Molho de tomate, mussarela, pepperoni artesanal e orégano', 'https://via.placeholder.com/400x300?text=Pepperoni', 5200, false, true, false, true),
-('PIZZA_SALGADA', 'Quatro Queijos', 'Molho de tomate, mussarela, provolone, gorgonzola e parmesão', 'https://via.placeholder.com/400x300?text=Quatro+Queijos', 5500, true, false, false, true),
-('PIZZA_SALGADA', 'Frango com Catupiry', 'Molho de tomate, mussarela, frango desfiado, catupiry, milho e azeitona', 'https://via.placeholder.com/400x300?text=Frango+Catupiry', 5000, false, false, true, true),
-('PIZZA_SALGADA', 'Portuguesa', 'Molho de tomate, mussarela, presunto, ovos, cebola, azeitona, ervilha e tomate', 'https://via.placeholder.com/400x300?text=Portuguesa', 5300, false, false, false, true),
-('PIZZA_SALGADA', 'Vegetariana', 'Molho de tomate, mussarela, abobrinha, berinjela, pimentão, tomate seco e rúcula', 'https://via.placeholder.com/400x300?text=Vegetariana', 4900, true, false, false, true),
-('PIZZA_SALGADA', 'Bacon com Cheddar', 'Molho de tomate, mussarela, bacon crocante, cheddar cremoso e cebola caramelizada', 'https://via.placeholder.com/400x300?text=Bacon+Cheddar', 5400, false, false, false, true),
-('PIZZA_DOCE', 'Romeu e Julieta', 'Mussarela, goiabada cascão derretida e canela', 'https://via.placeholder.com/400x300?text=Romeu+e+Julieta', 4200, true, false, false, true),
-('PIZZA_DOCE', 'Nutella com Morango', 'Creme de avelã artesanal, morangos frescos e açúcar de confeiteiro', 'https://via.placeholder.com/400x300?text=Nutella+Morango', 4800, true, false, true, true),
-('BEBIDA', 'Coca-Cola 350ml', 'Refrigerante lata 350 ml', 'https://via.placeholder.com/400x300?text=Coca-Cola', 600, false, false, false, true),
-('BEBIDA', 'Guaraná Antarctica 350ml', 'Refrigerante lata 350 ml', 'https://via.placeholder.com/400x300?text=Guaraná', 550, false, false, false, true)
+INSERT INTO produto (categoria, nome, descricao, imagem_url, preco_centavos, ativo) VALUES
+('PIZZA_SALGADA', 'Margherita', 'Molho de tomate, mussarela de búfala, manjericão fresco e azeite', 'https://via.placeholder.com/400x300?text=Margherita', 4500, true),
+('PIZZA_SALGADA', 'Calabresa', 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e orégano', 'https://via.placeholder.com/400x300?text=Calabresa', 4800, true),
+('PIZZA_SALGADA', 'Pepperoni', 'Molho de tomate, mussarela, pepperoni artesanal e orégano', 'https://via.placeholder.com/400x300?text=Pepperoni', 5200, true),
+('PIZZA_SALGADA', 'Quatro Queijos', 'Molho de tomate, mussarela, provolone, gorgonzola e parmesão', 'https://via.placeholder.com/400x300?text=Quatro+Queijos', 5500, true),
+('PIZZA_SALGADA', 'Frango com Catupiry', 'Molho de tomate, mussarela, frango desfiado, catupiry, milho e azeitona', 'https://via.placeholder.com/400x300?text=Frango+Catupiry', 5000, true),
+('PIZZA_SALGADA', 'Portuguesa', 'Molho de tomate, mussarela, presunto, ovos, cebola, azeitona, ervilha e tomate', 'https://via.placeholder.com/400x300?text=Portuguesa', 5300, true),
+('PIZZA_SALGADA', 'Vegetariana', 'Molho de tomate, mussarela, abobrinha, berinjela, pimentão, tomate seco e rúcula', 'https://via.placeholder.com/400x300?text=Vegetariana', 4900, true),
+('PIZZA_SALGADA', 'Bacon com Cheddar', 'Molho de tomate, mussarela, bacon crocante, cheddar cremoso e cebola caramelizada', 'https://via.placeholder.com/400x300?text=Bacon+Cheddar', 5400, true),
+('PIZZA_DOCE', 'Romeu e Julieta', 'Mussarela, goiabada cascão derretida e canela', 'https://via.placeholder.com/400x300?text=Romeu+e+Julieta', 4200, true),
+('PIZZA_DOCE', 'Nutella com Morango', 'Creme de avelã artesanal, morangos frescos e açúcar de confeiteiro', 'https://via.placeholder.com/400x300?text=Nutella+Morango', 4800, true),
+('BEBIDA', 'Coca-Cola 350ml', 'Refrigerante lata 350 ml', 'https://via.placeholder.com/400x300?text=Coca-Cola', 600, true),
+('BEBIDA', 'Guaraná Antarctica 350ml', 'Refrigerante lata 350 ml', 'https://via.placeholder.com/400x300?text=Guaraná', 550, true)
 ON CONFLICT (nome) DO NOTHING;

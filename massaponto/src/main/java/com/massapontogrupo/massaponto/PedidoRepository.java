@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface PedidoRepository extends CrudRepository<Pedido, Long> {
 
+    // Lista todos os pedidos do mais recente para o mais antigo
     List<Pedido> findAllByOrderByCriadoEmDesc();
 }

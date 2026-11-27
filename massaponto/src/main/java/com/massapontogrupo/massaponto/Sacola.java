@@ -12,6 +12,8 @@ import java.util.Objects;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Sacola {
 
+    private static final int QUANTIDADE_MAXIMA = 99;
+
     private final List<ItemPedido> itens = new ArrayList<>();
 
     // SOBRECARGA 1: adicionar com apenas produto (quantidade = 1, sem observação)
@@ -31,6 +33,8 @@ public class Sacola {
         }
         if (quantidade < 1) {
             quantidade = 1;
+        } else if (quantidade > QUANTIDADE_MAXIMA) {
+            quantidade = QUANTIDADE_MAXIMA;
         }
 
         // Normaliza observação para comparação (null e vazio são iguais)
@@ -40,7 +44,7 @@ public class Sacola {
         for (ItemPedido item : itens) {
             String obsItem = (item.getObservacao() == null || item.getObservacao().isBlank()) ? null : item.getObservacao().trim();
             if (Objects.equals(item.getProdutoId(), produto.getId()) && Objects.equals(obsItem, obsNormalizada)) {
-                item.setQuantidade(item.getQuantidade() + quantidade);
+                item.setQuantidade(Math.min(QUANTIDADE_MAXIMA, item.getQuantidade() + quantidade));
                 return;
             }
         }

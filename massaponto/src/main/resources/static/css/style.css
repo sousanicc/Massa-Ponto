@@ -271,6 +271,11 @@ img {
     padding: 0 6px;
 }
 
+.header-sacola:hover .header-sacola-quantidade {
+    background-color: var(--queijo);
+    color: var(--texto-escuro);
+}
+
 /* Botão Pedidos */
 .header-pedidos {
     color: var(--texto-suave);
@@ -431,45 +436,6 @@ img {
     padding: var(--espacamento-sm);
 }
 
-/* Selos no canto da imagem */
-.produto-selos {
-    position: absolute;
-    top: var(--espacamento-sm);
-    left: var(--espacamento-sm);
-    right: var(--espacamento-sm);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--espacamento-xs);
-    pointer-events: none;
-}
-
-.selo {
-    pointer-events: auto;
-    font-family: var(--fonte-corpo);
-    font-weight: 600;
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 6px;
-    border-radius: var(--raio-sm);
-    line-height: 1.2;
-}
-
-.selo.mais-pedida {
-    background-color: var(--queijo);
-    color: var(--texto-escuro);
-}
-
-.selo.vegetariana {
-    background-color: var(--manjericao);
-    color: #fff;
-}
-
-.selo.picante {
-    background-color: var(--tomate-suave);
-    color: var(--tomate-claro);
-}
-
 /* Info do produto */
 .produto-info {
     flex: 1 1 auto;
@@ -570,13 +536,6 @@ img {
         height: auto;
         aspect-ratio: 4 / 3;
     }
-
-    .produto-selos {
-        top: var(--espacamento-sm);
-        left: var(--espacamento-sm);
-        right: var(--espacamento-sm);
-        bottom: auto;
-    }
 }
 
 /* Desktop: 3 colunas */
@@ -645,23 +604,6 @@ img {
     padding: var(--espacamento-md);
 }
 
-.produto-imagem-grande .produto-selos {
-    position: absolute;
-    top: var(--espacamento-md);
-    left: var(--espacamento-md);
-    right: var(--espacamento-md);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--espacamento-xs);
-    pointer-events: none;
-}
-
-.produto-imagem-grande .selo {
-    pointer-events: auto;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-}
-
 .produto-info-detalhe {
     display: flex;
     flex-direction: column;
@@ -674,38 +616,6 @@ img {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
     color: var(--texto);
     line-height: 1.2;
-}
-
-.etiquetas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--espacamento-xs);
-}
-
-.etiqueta {
-    font-family: var(--fonte-corpo);
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 4px 10px;
-    border-radius: var(--raio-sm);
-    line-height: 1.2;
-}
-
-.etiqueta.mais-pedida {
-    background-color: var(--queijo);
-    color: var(--texto-escuro);
-}
-
-.etiqueta.vegetariana {
-    background-color: var(--manjericao);
-    color: #fff;
-}
-
-.etiqueta.picante {
-    background-color: var(--tomate-suave);
-    color: var(--tomate-claro);
 }
 
 .descricao-detalhe {

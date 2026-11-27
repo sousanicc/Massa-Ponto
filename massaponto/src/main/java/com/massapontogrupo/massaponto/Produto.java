@@ -25,22 +25,10 @@ public class Produto {
     @Column("preco_centavos")
     private Integer precoCentavos;
 
-    @Column("vegetariana")
-    private Boolean vegetariana;
-
-    @Column("picante")
-    private Boolean picante;
-
-    @Column("mais_pedida")
-    private Boolean maisPedida;
-
     @Column("ativo")
     private Boolean ativo;
 
     public Produto() {
-        this.vegetariana = false;
-        this.picante = false;
-        this.maisPedida = false;
         this.ativo = true;
     }
 
@@ -90,30 +78,6 @@ public class Produto {
 
     public void setPrecoCentavos(Integer precoCentavos) {
         this.precoCentavos = precoCentavos;
-    }
-
-    public Boolean getVegetariana() {
-        return vegetariana;
-    }
-
-    public void setVegetariana(Boolean vegetariana) {
-        this.vegetariana = vegetariana;
-    }
-
-    public Boolean getPicante() {
-        return picante;
-    }
-
-    public void setPicante(Boolean picante) {
-        this.picante = picante;
-    }
-
-    public Boolean getMaisPedida() {
-        return maisPedida;
-    }
-
-    public void setMaisPedida(Boolean maisPedida) {
-        this.maisPedida = maisPedida;
     }
 
     public Boolean getAtivo() {

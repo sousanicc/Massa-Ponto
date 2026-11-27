@@ -23,6 +23,7 @@ public class CheckoutController {
         if (sacola.isVazia()) {
             return "redirect:/sacola";
         }
+        model.addAttribute("formaPagamento", FormaPagamento.PIX);
         model.addAttribute("sacola", sacola);
         return "checkout";
     }
