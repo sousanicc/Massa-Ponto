@@ -1,5 +1,10 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.controller;
 
+import com.massapontogrupo.massaponto.model.FormaPagamento;
+import com.massapontogrupo.massaponto.model.Pedido;
+import com.massapontogrupo.massaponto.model.Sacola;
+import com.massapontogrupo.massaponto.model.pagamento.Pagamento;
+import com.massapontogrupo.massaponto.service.PedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

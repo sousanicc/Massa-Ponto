@@ -1,5 +1,6 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.repository;
 
+import com.massapontogrupo.massaponto.model.Pedido;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

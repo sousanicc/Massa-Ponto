@@ -1,4 +1,4 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.model;
 
 public enum FormaPagamento {
     PIX("Pix"),

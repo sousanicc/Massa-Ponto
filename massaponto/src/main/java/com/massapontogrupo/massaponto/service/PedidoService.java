@@ -1,5 +1,12 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.service;
 
+import com.massapontogrupo.massaponto.model.FormaPagamento;
+import com.massapontogrupo.massaponto.model.ItemPedido;
+import com.massapontogrupo.massaponto.model.Pedido;
+import com.massapontogrupo.massaponto.model.Sacola;
+import com.massapontogrupo.massaponto.repository.ItemPedidoRepository;
+import com.massapontogrupo.massaponto.repository.PedidoRepository;
+import com.massapontogrupo.massaponto.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

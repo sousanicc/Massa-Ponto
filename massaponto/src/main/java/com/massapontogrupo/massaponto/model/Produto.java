@@ -1,4 +1,4 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;

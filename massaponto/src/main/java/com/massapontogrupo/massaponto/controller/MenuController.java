@@ -1,5 +1,7 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.controller;
 
+import com.massapontogrupo.massaponto.model.Categoria;
+import com.massapontogrupo.massaponto.repository.ProdutoRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.model;
 
 public enum Categoria {
     PIZZA_SALGADA("Pizza Salgada"),

@@ -1,5 +1,6 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.controller;
 
+import com.massapontogrupo.massaponto.model.Sacola;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 

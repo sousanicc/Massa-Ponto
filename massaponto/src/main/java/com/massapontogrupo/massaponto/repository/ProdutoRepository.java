@@ -1,5 +1,7 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.repository;
 
+import com.massapontogrupo.massaponto.model.Categoria;
+import com.massapontogrupo.massaponto.model.Produto;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

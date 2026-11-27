@@ -1,4 +1,4 @@
-package com.massapontogrupo.massaponto;
+package com.massapontogrupo.massaponto.model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
