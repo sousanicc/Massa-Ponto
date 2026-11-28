@@ -1,7 +1,8 @@
 package com.massapontogrupo.massaponto.controller;
 
+import com.massapontogrupo.massaponto.model.Produto;
 import com.massapontogrupo.massaponto.model.Sacola;
-import com.massapontogrupo.massaponto.repository.ProdutoRepository;
+import com.massapontogrupo.massaponto.repository.ProdutoDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SacolaController {
 
-    private final ProdutoRepository produtoRepository;
+    private final ProdutoDAO produtoDAO;
     private final Sacola sacola;
 
-    public SacolaController(ProdutoRepository produtoRepository, Sacola sacola) {
-        this.produtoRepository = produtoRepository;
+    public SacolaController(ProdutoDAO produtoDAO, Sacola sacola) {
+        this.produtoDAO = produtoDAO;
         this.sacola = sacola;
     }
 
@@ -25,14 +26,14 @@ public class SacolaController {
     public String adicionar(@RequestParam Long produtoId,
                             @RequestParam(required = false) String observacao,
                             @RequestParam(defaultValue = "1") int quantidade) {
-        var produtoOpt = produtoRepository.findById(produtoId);
-        if (produtoOpt.isEmpty() || !produtoOpt.get().getAtivo()) {
+        Produto produto = produtoDAO.buscarPorId(produtoId);
+        if (produto == null || !produto.getAtivo()) {
             return "redirect:/";
         }
         if (quantidade < 1) {
             quantidade = 1;
         }
-        sacola.adicionar(produtoOpt.get(), observacao, quantidade);
+        sacola.adicionar(produto, observacao, quantidade);
         return "redirect:/sacola";
     }
 

@@ -1,44 +1,43 @@
 package com.massapontogrupo.massaponto.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
-
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-@Table("pedido")
 public class Pedido {
 
-    @Id
     private Long id;
-
-    @Column("nome_cliente")
     private String nomeCliente;
-
-    @Column("telefone")
     private String telefone;
-
-    @Column("endereco")
     private String endereco;
-
-    @Column("criado_em")
     private LocalDateTime criadoEm;
-
-    @Column("total_centavos")
     private Integer totalCentavos;
-
-    @Column("forma_pagamento")
     private FormaPagamento formaPagamento;
-
-    @Transient
     private List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido() {
         this.criadoEm = LocalDateTime.now();
+    }
+
+    // Converte um registro do JdbcTemplate em um objeto Pedido
+    public static Pedido converterRegistros(Map<String, Object> registro) {
+        Pedido pedido = new Pedido();
+        pedido.setId(((Number) registro.get("id")).longValue());
+        pedido.setNomeCliente((String) registro.get("nome_cliente"));
+        pedido.setTelefone((String) registro.get("telefone"));
+        pedido.setEndereco((String) registro.get("endereco"));
+        Object criadoEmObj = registro.get("criado_em");
+        if (criadoEmObj instanceof Timestamp ts) {
+            pedido.setCriadoEm(ts.toLocalDateTime());
+        } else if (criadoEmObj instanceof LocalDateTime ldt) {
+            pedido.setCriadoEm(ldt);
+        }
+        pedido.setTotalCentavos(((Number) registro.get("total_centavos")).intValue());
+        pedido.setFormaPagamento(FormaPagamento.valueOf((String) registro.get("forma_pagamento")));
+        return pedido;
     }
 
     public Long getId() {

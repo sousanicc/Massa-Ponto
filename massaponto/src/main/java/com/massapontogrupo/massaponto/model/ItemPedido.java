@@ -1,36 +1,31 @@
 package com.massapontogrupo.massaponto.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.Map;
 
-@Table("item_pedido")
 public class ItemPedido {
 
-    @Id
     private Long id;
-
-    @Column("pedido_id")
     private Long pedidoId;
-
-    @Column("produto_id")
     private Long produtoId;
-
-    @Column("quantidade")
     private Integer quantidade;
-
-    @Column("observacao")
     private String observacao;
-
-    @Column("preco_unitario_centavos")
     private Integer precoUnitarioCentavos;
-
-    @Transient
     private Produto produto;
 
     public ItemPedido() {
         this.quantidade = 1;
+    }
+
+    // Converte um registro do JdbcTemplate em um objeto ItemPedido
+    public static ItemPedido converterRegistros(Map<String, Object> registro) {
+        ItemPedido item = new ItemPedido();
+        item.setId(((Number) registro.get("id")).longValue());
+        item.setPedidoId(((Number) registro.get("pedido_id")).longValue());
+        item.setProdutoId(((Number) registro.get("produto_id")).longValue());
+        item.setQuantidade(((Number) registro.get("quantidade")).intValue());
+        item.setObservacao((String) registro.get("observacao"));
+        item.setPrecoUnitarioCentavos(((Number) registro.get("preco_unitario_centavos")).intValue());
+        return item;
     }
 
     public Long getId() {

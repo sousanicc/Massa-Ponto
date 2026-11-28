@@ -1,30 +1,28 @@
 package com.massapontogrupo.massaponto.controller;
 
 import com.massapontogrupo.massaponto.model.Produto;
-import com.massapontogrupo.massaponto.repository.ProdutoRepository;
+import com.massapontogrupo.massaponto.repository.ProdutoDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Optional;
-
 @Controller
 public class ProdutoController {
 
-    private final ProdutoRepository produtoRepository;
+    private final ProdutoDAO produtoDAO;
 
-    public ProdutoController(ProdutoRepository produtoRepository) {
-        this.produtoRepository = produtoRepository;
+    public ProdutoController(ProdutoDAO produtoDAO) {
+        this.produtoDAO = produtoDAO;
     }
 
     @GetMapping("/produto/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
-        Optional<Produto> produto = produtoRepository.findById(id);
-        if (produto.isEmpty() || !produto.get().getAtivo()) {
+        Produto produto = produtoDAO.buscarPorId(id);
+        if (produto == null || !produto.getAtivo()) {
             return "redirect:/";
         }
-        model.addAttribute("produto", produto.get());
+        model.addAttribute("produto", produto);
         return "produto";
     }
 
