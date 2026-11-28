@@ -1778,27 +1778,51 @@ img {
 .admin-col-acoes {
     white-space: nowrap;
     width: 1%;
+    min-width: 220px; /* mais espaço para dois botões + gap */
     display: flex;
     align-items: center;
-    gap: var(--espacamento-xs);
+    gap: var(--espacamento-sm);
     justify-content: flex-end;
+    padding-right: var(--espacamento-md);
+}
+
+/* Garantir que o form não quebre o layout */
+.admin-col-acoes .admin-form-excluir {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    flex-shrink: 0;
 }
 
 .btn-acao-pequena {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
+    min-width: 90px; /* largura mínima para o texto não cortar */
     min-height: 44px;
     padding: 0 var(--espacamento-md);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
+    flex-shrink: 0; /* não encolhe */
 }
 
 .admin-form-excluir {
     display: inline-flex;
     align-items: center;
+    flex-shrink: 0;
+}
+
+/* Fix table layout - prevent column overlap */
+.admin-tabela {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.admin-tabela th,
+.admin-tabela td {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .admin-vazio {
@@ -2024,6 +2048,8 @@ img {
         justify-content: flex-end;
         padding-top: var(--espacamento-sm);
         border-top: 1px solid var(--borda);
+        flex-wrap: wrap;
+        gap: var(--espacamento-xs);
     }
 
     .admin-tabela td[data-label="Imagem"]::before {

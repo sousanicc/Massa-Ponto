@@ -4,6 +4,7 @@ import com.massapontogrupo.massaponto.model.Categoria;
 import com.massapontogrupo.massaponto.model.Produto;
 import com.massapontogrupo.massaponto.repository.ProdutoDAO;
 import com.massapontogrupo.massaponto.service.ImagemService;
+import com.massapontogrupo.massaponto.service.PedidoService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,12 @@ public class ProdutoAdminController {
 
     private final ProdutoDAO produtoDAO;
     private final ImagemService imagemService;
+    private final PedidoService pedidoService;
 
-    public ProdutoAdminController(ProdutoDAO produtoDAO, ImagemService imagemService) {
+    public ProdutoAdminController(ProdutoDAO produtoDAO, ImagemService imagemService, PedidoService pedidoService) {
         this.produtoDAO = produtoDAO;
         this.imagemService = imagemService;
+        this.pedidoService = pedidoService;
     }
 
     // ========= LISTAGEM DE PRODUTOS =========
@@ -57,6 +60,7 @@ public class ProdutoAdminController {
         if (erro != null) {
             model.addAttribute("erro", erro);
             model.addAttribute("categorias", Categoria.values());
+            model.addAttribute("precoFormatado", precoStr); // manter o que o usuário digitou
             return "admin-produto-form";
         }
 
@@ -74,6 +78,14 @@ public class ProdutoAdminController {
             return "admin-produto-form";
         } catch (IllegalStateException e) {
             model.addAttribute("erro", "Erro ao salvar a imagem: " + e.getMessage());
+            model.addAttribute("categorias", Categoria.values());
+            return "admin-produto-form";
+        } catch (SecurityException e) {
+            model.addAttribute("erro", "Erro de segurança no upload.");
+            model.addAttribute("categorias", Categoria.values());
+            return "admin-produto-form";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro inesperado no upload: " + e.getMessage());
             model.addAttribute("categorias", Categoria.values());
             return "admin-produto-form";
         }
@@ -122,6 +134,7 @@ public class ProdutoAdminController {
         if (erro != null) {
             model.addAttribute("erro", erro);
             model.addAttribute("categorias", Categoria.values());
+            model.addAttribute("precoFormatado", precoStr); // manter o que o usuário digitou
             return "admin-produto-form";
         }
 
@@ -148,6 +161,16 @@ public class ProdutoAdminController {
             return "admin-produto-form";
         } catch (IllegalStateException e) {
             model.addAttribute("erro", "Erro ao salvar a imagem: " + e.getMessage());
+            model.addAttribute("categorias", Categoria.values());
+            model.addAttribute("precoFormatado", formatarPrecoParaInput(precoCentavos));
+            return "admin-produto-form";
+        } catch (SecurityException e) {
+            model.addAttribute("erro", "Erro de segurança no upload.");
+            model.addAttribute("categorias", Categoria.values());
+            model.addAttribute("precoFormatado", formatarPrecoParaInput(precoCentavos));
+            return "admin-produto-form";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro inesperado no upload: " + e.getMessage());
             model.addAttribute("categorias", Categoria.values());
             model.addAttribute("precoFormatado", formatarPrecoParaInput(precoCentavos));
             return "admin-produto-form";
@@ -194,7 +217,7 @@ public class ProdutoAdminController {
     // ========= EXCLUIR (POST) - exclusão física em cascata =========
     @PostMapping("/admin/produtos/{id}/excluir")
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        produtoDAO.excluir(id);
+        pedidoService.excluirProdutoEmCascata(id);
         redirectAttributes.addFlashAttribute("sucesso", "Produto excluído com sucesso!");
         return "redirect:/admin/produtos";
     }

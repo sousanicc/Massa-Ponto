@@ -1,7 +1,14 @@
 -- Dados iniciais do cardápio (protegidos contra duplicação com ON CONFLICT DO NOTHING)
 -- 8 pizzas salgadas, 2 pizzas doces, 2 refrigerantes (350 ml)
 -- Preços em centavos
+-- Executa a cada restart após o schema.sql
 
+-- Limpar dados existentes (ordem inversa das FKs)
+DELETE FROM item_pedido;
+DELETE FROM pedido;
+DELETE FROM produto;
+
+-- Inserir produtos padrão
 INSERT INTO produto (categoria, nome, descricao, imagem_url, preco_centavos) VALUES
 ('PIZZA_SALGADA', 'Margherita', 'Molho de tomate, mussarela de búfala, manjericão fresco e azeite', 'https://via.placeholder.com/400x300?text=Margherita', 4500),
 ('PIZZA_SALGADA', 'Calabresa', 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e orégano', 'https://via.placeholder.com/400x300?text=Calabresa', 4800),

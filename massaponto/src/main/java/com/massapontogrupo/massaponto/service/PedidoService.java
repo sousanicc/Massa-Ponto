@@ -96,4 +96,30 @@ public class PedidoService {
         }
         pedido.setItens(itens);
     }
+
+    // Exclusão física em cascata de produto (segue modelo da monitora):
+    // Ordem correta (FKs): primeiro apaga filhos (item_pedido), depois pais (pedido), por último produto
+    // 1. Deleta TODOS os itens dos pedidos que contenham este produto (para liberar FK item_pedido -> pedido)
+    // 2. Deleta os pedidos que continham este produto
+    // 3. Deleta o produto
+    // Tudo em uma transação: se qualquer etapa falhar, tudo é desfeito
+    @Transactional
+    public void excluirProdutoEmCascata(Long produtoId) {
+        // 1. Primeiro: pega os IDs dos pedidos que têm este produto
+        List<Long> pedidoIds = itemPedidoDAO.buscarPedidoIdsPorProdutoId(produtoId);
+        
+        if (!pedidoIds.isEmpty()) {
+            // 2. Deleta TODOS os itens desses pedidos (filhos de pedido)
+            itemPedidoDAO.deletarItensPorPedidoIds(pedidoIds);
+            
+            // 3. Deleta os pedidos (pais dos itens)
+            pedidoDAO.deletarPedidosPorIds(pedidoIds);
+        } else {
+            // Se nenhum pedido tem este produto, só deleta os itens órfãos do produto
+            itemPedidoDAO.deletarItensPorProdutoId(produtoId);
+        }
+        
+        // 4. Por último: deleta o produto
+        produtoDAO.deletarProduto(produtoId);
+    }
 }

@@ -20,7 +20,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Mapear /uploads/** para a pasta física de uploads
+        // file: URI DEVE terminar com '/' para o ResourceResolver funcionar
         String localPath = this.pastaUploads.toUri().toString();
+        if (!localPath.endsWith("/")) {
+            localPath += "/";
+        }
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(localPath)
                 .setCachePeriod(3600); // cache 1 hora

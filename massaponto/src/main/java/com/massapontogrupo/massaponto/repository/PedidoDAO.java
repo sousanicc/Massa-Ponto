@@ -63,4 +63,15 @@ public class PedidoDAO {
         }
         return pedidos;
     }
+
+    // Deleta pedidos por uma lista de IDs (usado na cascade delete)
+    public void deletarPedidosPorIds(List<Long> pedidoIds) {
+        if (pedidoIds == null || pedidoIds.isEmpty()) {
+            return;
+        }
+        // Monta placeholders (?, ?, ...) para o IN
+        String placeholders = String.join(",", pedidoIds.stream().map(i -> "?").toList());
+        String sql = "DELETE FROM pedido WHERE id IN (" + placeholders + ")";
+        jdbc.update(sql, pedidoIds.toArray());
+    }
 }

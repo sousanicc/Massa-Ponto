@@ -6,7 +6,6 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -94,26 +93,14 @@ public class ProdutoDAO {
         jdbc.update(sql, obj);
     }
 
-    // Exclusão física em cascata (segue modelo da monitora):
-    // 1. Deleta itens de pedido do produto
-    // 2. Deleta pedidos que contenham itens desse produto
-    // 3. Deleta o produto
-    // Tudo em uma transação: se qualquer etapa falhar, tudo é desfeito
-    @Transactional
-    public void excluir(Long id) {
-        // 1. Deleta itens do produto (item_pedido)
-        jdbc.update("DELETE FROM item_pedido WHERE produto_id = ?", id);
+    // Deleta apenas o produto (a cascade é feita no Service)
+    public void deletarProduto(Long id) {
+        String sql = "DELETE FROM produto WHERE id = ?";
+        jdbc.update(sql, id);
+    }
 
-        // 2. Deleta pedidos que têm itens desse produto
-        // (subquery: seleciona IDs de pedidos que contêm o produto)
-        jdbc.update("""
-            DELETE FROM pedido
-            WHERE id IN (
-                SELECT DISTINCT pedido_id FROM item_pedido WHERE produto_id = ?
-            )
-            """, id);
-
-        // 3. Deleta o produto
-        jdbc.update("DELETE FROM produto WHERE id = ?", id);
+    // Expor JdbcTemplate para uso em transações no Service
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbc;
     }
 }
