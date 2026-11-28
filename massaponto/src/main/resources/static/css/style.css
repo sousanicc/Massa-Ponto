@@ -1693,7 +1693,7 @@ img {
     background-color: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: var(--raio-md);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .admin-tabela th,
@@ -1777,12 +1777,11 @@ img {
 
 .admin-col-acoes {
     white-space: nowrap;
-    width: 1%;
-    min-width: 220px; /* mais espaço para dois botões + gap */
-    display: flex;
-    align-items: center;
-    gap: var(--espacamento-sm);
-    justify-content: flex-end;
+    width: auto;
+    text-align: right;
+    vertical-align: middle;
+    padding-top: var(--espacamento-sm);
+    padding-bottom: var(--espacamento-sm);
     padding-right: var(--espacamento-md);
 }
 
@@ -1790,21 +1789,30 @@ img {
 .admin-col-acoes .admin-form-excluir {
     display: inline-flex;
     align-items: center;
-    margin: 0;
+    margin-left: var(--espacamento-xs);
     flex-shrink: 0;
 }
 
-.btn-acao-pequena {
+/* Impedir que o link "Editar" herde width: 100% do .btn-voltar */
+.admin-col-acoes .btn-voltar {
+    width: auto !important;
+    display: inline-flex;
+    margin-right: 0;
+}
+
+/* Botões lado a lado, largura igual para ficarem balanceados */
+.admin-col-acoes .btn-acao-pequena {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 90px; /* largura mínima para o texto não cortar */
+    min-width: 80px;
+    width: auto;
     min-height: 44px;
-    padding: 0 var(--espacamento-md);
+    padding: 0 var(--espacamento-sm);
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
-    flex-shrink: 0; /* não encolhe */
+    flex-shrink: 0;
 }
 
 .admin-form-excluir {
@@ -1813,16 +1821,26 @@ img {
     flex-shrink: 0;
 }
 
-/* Fix table layout - prevent column overlap */
+/* Fix table layout - impedir corte de conteúdo nas ações */
 .admin-tabela {
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
 }
 
 .admin-tabela th,
 .admin-tabela td {
-    overflow: hidden;
+    overflow: visible;
     text-overflow: ellipsis;
+}
+
+/* Exceção: coluna de ações NÃO corta conteúdo (botões precisam aparecer inteiros) */
+.admin-tabela .admin-col-acoes {
+    overflow: visible;
+}
+
+/* Garantir altura mínima da linha para caber botões de 44px */
+.admin-tabela tbody tr {
+    min-height: 64px;
 }
 
 .admin-vazio {
