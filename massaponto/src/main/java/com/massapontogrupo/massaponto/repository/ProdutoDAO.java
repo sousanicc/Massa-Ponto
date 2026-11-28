@@ -56,4 +56,47 @@ public class ProdutoDAO {
         }
         return produtos;
     }
+
+    // Lista todos os produtos ativos em ordem alfabética
+    public List<Produto> listarTodosAtivos() {
+        String sql = "SELECT * FROM produto WHERE ativo = true ORDER BY nome ASC";
+        List<Map<String, Object>> listaRegistros = jdbc.queryForList(sql);
+        List<Produto> produtos = new ArrayList<>();
+        for (Map<String, Object> registro : listaRegistros) {
+            produtos.add(Produto.converterRegistros(registro));
+        }
+        return produtos;
+    }
+
+    // INSERT de um produto
+    public void inserirProduto(Produto produto) {
+        String sql = "INSERT INTO produto(categoria, nome, descricao, imagem_url, preco_centavos, ativo) VALUES (?, ?, ?, ?, ?, ?)";
+        Object[] obj = new Object[6];
+        obj[0] = produto.getCategoria().name();
+        obj[1] = produto.getNome();
+        obj[2] = produto.getDescricao();
+        obj[3] = produto.getImagemUrl();
+        obj[4] = produto.getPrecoCentavos();
+        obj[5] = produto.getAtivo();
+        jdbc.update(sql, obj);
+    }
+
+    // UPDATE de um produto
+    public void atualizarProduto(Produto produto) {
+        String sql = "UPDATE produto SET categoria = ?, nome = ?, descricao = ?, imagem_url = ?, preco_centavos = ? WHERE id = ?";
+        Object[] obj = new Object[6];
+        obj[0] = produto.getCategoria().name();
+        obj[1] = produto.getNome();
+        obj[2] = produto.getDescricao();
+        obj[3] = produto.getImagemUrl();
+        obj[4] = produto.getPrecoCentavos();
+        obj[5] = produto.getId();
+        jdbc.update(sql, obj);
+    }
+
+    // Exclusão lógica: marca o produto como inativo
+    public void excluirLogico(Long id) {
+        String sql = "UPDATE produto SET ativo = false WHERE id = ?";
+        jdbc.update(sql, id);
+    }
 }

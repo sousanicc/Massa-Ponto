@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/cabecalho :: head('Admin - Cadastro de Produto')}"></head>
+<body>
+    <header th:replace="~{fragments/cabecalho :: cabecalho}"></header>
+
+    <main class="principal container-pagina">
+        <section class="secao" aria-labelledby="titulo-form-produto">
+            <h2 id="titulo-form-produto" class="secao-titulo"
+                th:text="${produto.id != null} ? 'Editar Produto' : 'Cadastrar Produto'"></h2>
+
+            <div th:if="${erro}" class="checkout-erro" th:text="${erro}"></div>
+
+            <form method="post"
+                  th:action="${produto.id != null} ? @{/admin/produto/{id}/editar(id=${produto.id})} : @{/admin/produto/cadastro}"
+                  enctype="multipart/form-data"
+                  style="max-width: 600px;">
+
+                <div class="campo" style="margin-bottom: 1rem;">
+                    <label for="nome">Nome <span class="obrigatorio">*</span></label>
+                    <input type="text" id="nome" name="nome" required
+                           th:value="${produto.nome}"
+                           style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+
+                <div class="campo" style="margin-bottom: 1rem;">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="3"
+                              th:text="${produto.descricao}"
+                              style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                </div>
+
+                <div class="campo" style="margin-bottom: 1rem;">
+                    <label for="precoCentavos">Preço (em centavos) <span class="obrigatorio">*</span></label>
+                    <input type="number" id="precoCentavos" name="precoCentavos" required min="1"
+                           th:value="${produto.precoCentavos}"
+                           placeholder="Ex: 3500 para R$ 35,00"
+                           style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+
+                <div class="campo" style="margin-bottom: 1rem;">
+                    <label for="categoria">Categoria <span class="obrigatorio">*</span></label>
+                    <select id="categoria" name="categoria" required
+                            style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+                        <option value="">Selecione...</option>
+                        <option th:each="cat : ${categorias}"
+                                th:value="${cat.name()}"
+                                th:text="${cat.name()}"
+                                th:selected="${produto.categoria != null and produto.categoria.name() == cat.name()}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo" style="margin-bottom: 1rem;">
+                    <label for="imagem">Imagem</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/*"
+                           style="width: 100%; padding: 0.5rem;">
+                    <small th:if="${produto.id != null}" style="color: #888;">
+                        Deixe em branco para manter a imagem atual.
+                    </small>
+                </div>
+
+                <!-- Preview da imagem atual ao editar -->
+                <div th:if="${produto.id != null and produto.imagemUrl != null}" style="margin-bottom: 1rem;">
+                    <p style="margin-bottom: 0.5rem; color: #666;">Imagem atual:</p>
+                    <img th:src="@{'/uploads/' + ${produto.imagemUrl}}"
+                         th:alt="${produto.nome}"
+                         style="max-width: 200px; border-radius: 8px; border: 1px solid #ddd;">
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button type="submit" class="btn-adicionar"
+                            style="padding: 0.75rem 2rem; border: none; cursor: pointer; font-size: 1rem;">
+                        Salvar
+                    </button>
+                    <a th:href="@{/admin/produtos}" style="color: #888; text-decoration: none;">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
