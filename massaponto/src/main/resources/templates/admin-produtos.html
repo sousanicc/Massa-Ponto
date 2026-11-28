@@ -47,7 +47,7 @@
                                    class="btn-voltar btn-acao-pequena">Editar</a>
                                 <form th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}" method="post"
                                       class="admin-form-excluir"
-                                      onsubmit="return confirm('Tem certeza que deseja desativar este produto?')">
+                                      onsubmit="return confirm('Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.')">
                                     <button type="submit" class="btn-remover btn-acao-pequena">Excluir</button>
                                 </form>
                             </td>

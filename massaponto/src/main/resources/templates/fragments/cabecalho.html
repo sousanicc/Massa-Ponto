@@ -3,7 +3,8 @@
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${titulo}">Massa &amp; Ponto</title>
+    <title th:text="${titulo}">Massa & Ponto</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
@@ -15,27 +16,29 @@
         <div class="header-conteudo">
             <a th:href="@{/}" class="logo" aria-label="Massa & Ponto - Página inicial">
                 <span class="logo-parte">Massa</span>
-                <span class="logo-e">&amp;</span>
+                <span class="logo-e">&</span>
                 <span class="logo-parte">Ponto</span>
                 <span class="logo-ponto" aria-hidden="true">.</span>
             </a>
-            <nav class="header-nav" aria-label="Navegação principal">
-                <a th:href="@{/sacola}" class="header-btn header-sacola" aria-label="Ver sacola">
-                    <span class="header-sacola-icone" aria-hidden="true">🛒</span>
-                    <span class="header-sacola-texto">Sacola</span>
-                    <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
-                </a>
-                <a th:href="@{/pedidos}" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
-            </nav>
-
-            <!-- Menu do administrador (dropdown sem JS) -->
-            <details class="header-admin">
-                <summary class="header-admin-toggle" aria-label="Menu do administrador" role="button">☰</summary>
-                <nav class="header-admin-menu" aria-label="Administração">
-                    <a th:href="@{/admin/produtos/novo}" class="header-admin-item">Cadastrar produto</a>
-                    <a th:href="@{/admin/produtos}" class="header-admin-item">Gerenciar produtos</a>
+            <div class="header-actions">
+                <nav class="header-nav" aria-label="Navegação principal">
+                    <a th:href="@{/sacola}" class="header-btn header-sacola" aria-label="Ver sacola">
+                        <span class="header-sacola-icone" aria-hidden="true">🛒</span>
+                        <span class="header-sacola-texto">Sacola</span>
+                        <span class="header-sacola-quantidade" th:if="${sacola.quantidadeTotal > 0}" th:text="${sacola.quantidadeTotal}">0</span>
+                    </a>
+                    <a th:href="@{/pedidos}" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
                 </nav>
-            </details>
+
+                <!-- Menu do administrador (dropdown sem JS) -->
+                <details class="header-admin">
+                    <summary class="header-admin-toggle" aria-label="Menu do administrador" role="button">☰</summary>
+                    <nav class="header-admin-menu" aria-label="Administração">
+                        <a th:href="@{/admin/produtos/novo}" class="header-admin-item">Cadastrar produto</a>
+                        <a th:href="@{/admin/produtos}" class="header-admin-item">Gerenciar produtos</a>
+                    </nav>
+                </details>
+            </div>
         </div>
     </header>
 </body>

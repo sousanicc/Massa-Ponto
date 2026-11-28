@@ -204,6 +204,13 @@ img {
     gap: var(--espacamento-sm);
 }
 
+/* Container que agrupa nav + menu admin */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--espacamento-sm);
+}
+
 /* Estilo base de pílula para ambos os botões */
 .header-btn {
     display: inline-flex;
@@ -1771,6 +1778,10 @@ img {
 .admin-col-acoes {
     white-space: nowrap;
     width: 1%;
+    display: flex;
+    align-items: center;
+    gap: var(--espacamento-xs);
+    justify-content: flex-end;
 }
 
 .btn-acao-pequena {
@@ -1786,7 +1797,8 @@ img {
 }
 
 .admin-form-excluir {
-    display: inline;
+    display: inline-flex;
+    align-items: center;
 }
 
 .admin-vazio {

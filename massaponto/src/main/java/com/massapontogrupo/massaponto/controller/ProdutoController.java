@@ -19,7 +19,7 @@ public class ProdutoController {
     @GetMapping("/produto/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
         Produto produto = produtoDAO.buscarPorId(id);
-        if (produto == null || !produto.getAtivo()) {
+        if (produto == null) {
             return "redirect:/";
         }
         model.addAttribute("produto", produto);

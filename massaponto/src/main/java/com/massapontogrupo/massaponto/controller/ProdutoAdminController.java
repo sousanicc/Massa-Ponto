@@ -191,11 +191,11 @@ public class ProdutoAdminController {
         return "admin-produto-excluir";
     }
 
-    // ========= EXCLUIR (POST) - exclusão lógica =========
+    // ========= EXCLUIR (POST) - exclusão física em cascata =========
     @PostMapping("/admin/produtos/{id}/excluir")
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        produtoDAO.excluirLogico(id);
-        redirectAttributes.addFlashAttribute("sucesso", "Produto desativado com sucesso!");
+        produtoDAO.excluir(id);
+        redirectAttributes.addFlashAttribute("sucesso", "Produto excluído com sucesso!");
         return "redirect:/admin/produtos";
     }
 

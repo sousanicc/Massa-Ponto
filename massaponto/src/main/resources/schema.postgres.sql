@@ -5,8 +5,7 @@ CREATE TABLE IF NOT EXISTS produto (
     nome VARCHAR(100) NOT NULL UNIQUE,
     descricao TEXT NOT NULL,
     imagem_url TEXT,
-    preco_centavos INTEGER NOT NULL,
-    ativo BOOLEAN NOT NULL DEFAULT TRUE
+    preco_centavos INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pedido (

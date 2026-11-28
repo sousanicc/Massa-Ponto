@@ -9,8 +9,8 @@
             <h2 id="titulo-excluir" class="secao-titulo">Confirmar exclusão</h2>
 
             <div class="admin-excluir-card">
-                <p>Tem certeza que deseja desativar o produto <strong th:text="${produto.nome}"></strong>?</p>
-                <p class="admin-excluir-aviso">O produto ficará invisível no cardápio, mas continuará aparecendo no histórico de pedidos já feitos.</p>
+                <p>Tem certeza que deseja excluir o produto <strong th:text="${produto.nome}"></strong>?</p>
+                <p class="admin-excluir-aviso"><strong>Atenção:</strong> Esta ação é irreversível. O produto será removido permanentemente, junto com todos os itens de pedidos e pedidos relacionados a ele.</p>
 
                 <div class="admin-excluir-produto">
                     <img th:if="${produto.imagemSrc}"
@@ -28,7 +28,7 @@
                 </div>
 
                 <form method="post" th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}" class="admin-excluir-acoes">
-                    <button type="submit" class="btn-remover">Sim, desativar</button>
+                    <button type="submit" class="btn-remover">Sim, excluir permanentemente</button>
                     <a th:href="@{/admin/produtos}" class="btn-voltar">Cancelar</a>
                 </form>
             </div>

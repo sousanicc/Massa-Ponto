@@ -10,10 +10,8 @@ public class Produto {
     private String descricao;
     private String imagemUrl;
     private Integer precoCentavos;
-    private Boolean ativo;
 
     public Produto() {
-        this.ativo = true;
     }
 
     // Converte um registro do JdbcTemplate em um objeto Produto
@@ -25,7 +23,6 @@ public class Produto {
         produto.setDescricao((String) registro.get("descricao"));
         produto.setImagemUrl((String) registro.get("imagem_url"));
         produto.setPrecoCentavos(((Number) registro.get("preco_centavos")).intValue());
-        produto.setAtivo((Boolean) registro.get("ativo"));
         return produto;
     }
 
@@ -75,14 +72,6 @@ public class Produto {
 
     public void setPrecoCentavos(Integer precoCentavos) {
         this.precoCentavos = precoCentavos;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
     }
 
     public String getPrecoFormatado() {

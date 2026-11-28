@@ -34,8 +34,18 @@ public class ImagemService {
             return null;
         }
 
-        // Validar tipo MIME
+        // Validar tipo MIME (pode vir null de alguns navegadores)
         String contentType = arquivo.getContentType();
+        if (contentType == null || contentType.isBlank()) {
+            // Tentar inferir pelo nome do arquivo original
+            String nomeOriginal = arquivo.getOriginalFilename();
+            if (nomeOriginal != null) {
+                String lower = nomeOriginal.toLowerCase();
+                if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) contentType = "image/jpeg";
+                else if (lower.endsWith(".png")) contentType = "image/png";
+                else if (lower.endsWith(".webp")) contentType = "image/webp";
+            }
+        }
         String extensao = switch (contentType) {
             case "image/jpeg" -> ".jpg";
             case "image/png" -> ".png";

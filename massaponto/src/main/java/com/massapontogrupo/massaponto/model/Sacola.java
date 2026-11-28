@@ -28,7 +28,7 @@ public class Sacola {
 
     // SOBRECARGA 3: método completo (chamado pelas duas anteriores)
     public void adicionar(Produto produto, String observacao, int quantidade) {
-        if (produto == null || !produto.getAtivo()) {
+        if (produto == null) {
             return;
         }
         int qtdNormalizada = normalizarQuantidade(quantidade);

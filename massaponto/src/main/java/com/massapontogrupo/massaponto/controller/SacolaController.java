@@ -27,7 +27,7 @@ public class SacolaController {
                             @RequestParam(required = false) String observacao,
                             @RequestParam(defaultValue = "1") int quantidade) {
         Produto produto = produtoDAO.buscarPorId(produtoId);
-        if (produto == null || !produto.getAtivo()) {
+        if (produto == null) {
             return "redirect:/";
         }
         if (quantidade < 1) {
