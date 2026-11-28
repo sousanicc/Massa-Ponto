@@ -61,11 +61,9 @@
                 </div>
 
                 <!-- Preview da imagem atual ao editar -->
-                <div th:if="${produto.id != null and produto.imagemUrl != null}" style="margin-bottom: 1rem;">
-                    <p style="margin-bottom: 0.5rem; color: #666;">Imagem atual:</p>
-                    <img th:src="@{'/uploads/' + ${produto.imagemUrl}}"
-                         th:alt="${produto.nome}"
-                         style="max-width: 200px; border-radius: 8px; border: 1px solid #ddd;">
+                <div th:if="${produto.id != null and produto.imagemSrc != null}" class="admin-preview-imagem">
+                    <p>Imagem atual:</p>
+                    <img th:src="${produto.imagemSrc}" th:alt="${produto.nome}">
                 </div>
 
                 <div style="display: flex; gap: 1rem; align-items: center;">

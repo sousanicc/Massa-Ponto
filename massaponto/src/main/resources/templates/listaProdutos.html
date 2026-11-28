@@ -33,11 +33,11 @@
                 <tbody>
                     <tr th:each="produto : ${produtos}" style="border-bottom: 1px solid #eee;">
                         <td style="padding: 0.75rem 1rem;">
-                            <img th:if="${produto.imagemUrl}"
-                                 th:src="@{'/uploads/' + ${produto.imagemUrl}}"
+                            <img th:if="${produto.imagemSrc}"
+                                 th:src="${produto.imagemSrc}"
                                  th:alt="${produto.nome}"
-                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
-                            <span th:unless="${produto.imagemUrl}" style="color: #aaa;">—</span>
+                                 class="admin-produto-miniatura">
+                            <span th:unless="${produto.imagemSrc}" class="admin-sem-imagem">—</span>
                         </td>
                         <td style="padding: 0.75rem 1rem;" th:text="${produto.nome}"></td>
                         <td style="padding: 0.75rem 1rem;" th:text="${produto.categoria}"></td>

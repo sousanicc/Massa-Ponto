@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/cabecalho :: head('Admin - Excluir Produto')}"></head>
+<body>
+    <header th:replace="~{fragments/cabecalho :: cabecalho}"></header>
+
+    <main class="principal container-pagina">
+        <section class="secao" aria-labelledby="titulo-excluir">
+            <h2 id="titulo-excluir" class="secao-titulo">Confirmar exclusão</h2>
+
+            <div class="admin-excluir-card">
+                <p>Tem certeza que deseja desativar o produto <strong th:text="${produto.nome}"></strong>?</p>
+                <p class="admin-excluir-aviso">O produto ficará invisível no cardápio, mas continuará aparecendo no histórico de pedidos já feitos.</p>
+
+                <div class="admin-excluir-produto">
+                    <img th:if="${produto.imagemSrc}"
+                         th:src="${produto.imagemSrc}"
+                         th:alt="${produto.nome}"
+                         class="admin-excluir-miniatura">
+                    <div>
+                        <p class="admin-excluir-nome" th:text="${produto.nome}"></p>
+                        <p class="admin-excluir-detalhes">
+                            <span th:text="${produto.categoria.nomeExibicao}"></span>
+                            •
+                            <span th:text="${produto.precoFormatado}"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <form method="post" th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}" class="admin-excluir-acoes">
+                    <button type="submit" class="btn-remover">Sim, desativar</button>
+                    <a th:href="@{/admin/produtos}" class="btn-voltar">Cancelar</a>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

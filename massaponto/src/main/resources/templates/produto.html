@@ -7,8 +7,8 @@
     <main class="principal">
         <article class="produto-detalhe">
             <div class="produto-imagem-grande">
-                <img th:if="${produto.imagemUrl}" th:src="${produto.imagemUrl}" th:alt="${produto.nome}" loading="lazy">
-                <div th:unless="${produto.imagemUrl}" class="produto-sem-imagem">Sem imagem</div>
+                <img th:if="${produto.imagemSrc}" th:src="${produto.imagemSrc}" th:alt="${produto.nome}" loading="lazy">
+                <div th:unless="${produto.imagemSrc}" class="produto-sem-imagem">Sem imagem</div>
             </div>
 
             <div class="produto-info-detalhe">

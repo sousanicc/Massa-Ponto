@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/cabecalho :: head('Admin - Produtos')}"></head>
+<body>
+    <header th:replace="~{fragments/cabecalho :: cabecalho}"></header>
+
+    <main class="principal container-pagina">
+        <section class="secao" aria-labelledby="titulo-admin-produtos">
+            <div class="admin-produtos-topo">
+                <h2 id="titulo-admin-produtos" class="secao-titulo">Gerenciar Produtos</h2>
+                <a th:href="@{/admin/produtos/novo}" class="btn-adicionar">+ Novo Produto</a>
+            </div>
+
+            <div th:if="${sucesso}" class="admin-sucesso" th:text="${sucesso}"></div>
+
+            <div th:if="${#lists.isEmpty(produtos)}" class="admin-vazio">
+                Nenhum produto cadastrado.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(produtos)}" class="admin-produtos-container">
+                <table class="admin-tabela" role="grid">
+                    <thead>
+                        <tr>
+                            <th scope="col">Imagem</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="produto : ${produtos}">
+                            <td class="admin-col-imagem" data-label="Imagem">
+                                <img th:if="${produto.imagemSrc}"
+                                     th:src="${produto.imagemSrc}"
+                                     th:alt="${produto.nome}"
+                                     class="admin-produto-miniatura">
+                                <span th:unless="${produto.imagemSrc}" class="admin-sem-imagem">—</span>
+                            </td>
+                            <td class="admin-col-nome" data-label="Nome" th:text="${produto.nome}"></td>
+                            <td class="admin-col-categoria" data-label="Categoria">
+                                <span class="admin-categoria-badge" th:text="${produto.categoria.nomeExibicao}"></span>
+                            </td>
+                            <td class="admin-col-preco" data-label="Preço" th:text="${produto.precoFormatado}"></td>
+                            <td class="admin-col-acoes" data-label="Ações">
+                                <a th:href="@{/admin/produtos/{id}/editar(id=${produto.id})}"
+                                   class="btn-voltar btn-acao-pequena">Editar</a>
+                                <form th:action="@{/admin/produtos/{id}/excluir(id=${produto.id})}" method="post"
+                                      class="admin-form-excluir"
+                                      onsubmit="return confirm('Tem certeza que deseja desativar este produto?')">
+                                    <button type="submit" class="btn-remover btn-acao-pequena">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

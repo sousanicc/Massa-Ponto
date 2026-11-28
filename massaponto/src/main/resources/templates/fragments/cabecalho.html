@@ -27,6 +27,15 @@
                 </a>
                 <a th:href="@{/pedidos}" class="header-btn header-pedidos" aria-label="Ver histórico de pedidos">Pedidos</a>
             </nav>
+
+            <!-- Menu do administrador (dropdown sem JS) -->
+            <details class="header-admin">
+                <summary class="header-admin-toggle" aria-label="Menu do administrador" role="button">☰</summary>
+                <nav class="header-admin-menu" aria-label="Administração">
+                    <a th:href="@{/admin/produtos/novo}" class="header-admin-item">Cadastrar produto</a>
+                    <a th:href="@{/admin/produtos}" class="header-admin-item">Gerenciar produtos</a>
+                </nav>
+            </details>
         </div>
     </header>
 </body>

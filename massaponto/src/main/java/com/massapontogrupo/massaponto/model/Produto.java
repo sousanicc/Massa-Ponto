@@ -93,4 +93,21 @@ public class Produto {
         long centavos = precoCentavos % 100;
         return String.format("R$ %d,%02d", reais, centavos);
     }
+
+    /**
+     * Retorna o caminho correto para a imagem do produto.
+     * - Se imagemUrl for nula ou vazia: retorna null (template mostra "Sem imagem")
+     * - Se já for URL absoluta (http://, https://) ou caminho absoluto (/...): retorna como está
+     * - Caso contrário: assume que é apenas o nome do arquivo e prefixa com "/uploads/"
+     */
+    public String getImagemSrc() {
+        if (imagemUrl == null || imagemUrl.isBlank()) {
+            return null;
+        }
+        String url = imagemUrl.trim();
+        if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/")) {
+            return url;
+        }
+        return "/uploads/" + url;
+    }
 }

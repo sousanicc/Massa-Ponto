@@ -288,6 +288,90 @@ img {
     background-color: var(--fundo);
 }
 
+/* Menu do administrador (dropdown sem JS) */
+.header-admin {
+    position: relative;
+    margin-left: var(--espacamento-sm);
+}
+
+.header-admin-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--superficie-alta);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-pill);
+    color: var(--texto);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    list-style: none; /* remove marker do summary */
+}
+
+.header-admin-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.header-admin-toggle:hover {
+    background-color: var(--tomate);
+    color: #fff;
+    border-color: var(--tomate);
+}
+
+.header-admin-toggle:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: 2px;
+}
+
+.header-admin-menu {
+    position: absolute;
+    top: calc(100% + var(--espacamento-xs));
+    right: 0;
+    min-width: 200px;
+    max-width: 360px;
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    box-shadow: var(--sombra-card-hover);
+    padding: var(--espacamento-xs);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s ease;
+}
+
+.header-admin[open] .header-admin-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.header-admin-item {
+    display: block;
+    padding: var(--espacamento-sm) var(--espacamento-md);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-radius: var(--raio-sm);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.header-admin-item:hover {
+    background-color: var(--superficie-alta);
+    color: var(--tomate-claro);
+    text-decoration: none;
+}
+
+.header-admin-item:focus-visible {
+    outline: 3px solid var(--queijo);
+    outline-offset: -2px;
+}
+
 /* Mobile: esconder texto "Sacola" em telas pequenas */
 @media (max-width: 480px) {
     .header-sacola-texto {
@@ -1580,4 +1664,372 @@ img {
 .pedidos-acoes {
     text-align: center;
     margin-top: var(--espacamento-lg);
+}
+
+/* ===== ADMIN - PRODUTOS ===== */
+.admin-produtos-topo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espacamento-md);
+    margin-bottom: var(--espacamento-lg);
+}
+
+.admin-produtos-container {
+    overflow-x: auto;
+}
+
+.admin-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    overflow: hidden;
+}
+
+.admin-tabela th,
+.admin-tabela td {
+    padding: var(--espacamento-md);
+    text-align: left;
+    border-bottom: 1px solid var(--borda);
+}
+
+.admin-tabela th {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.admin-tabela tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-tabela tbody tr:hover {
+    background-color: var(--superficie-alta);
+}
+
+.admin-col-imagem {
+    width: 72px;
+    white-space: nowrap;
+}
+
+.admin-produto-miniatura {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: var(--raio-sm);
+    border: 1px solid var(--borda);
+}
+
+.admin-sem-imagem {
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    color: var(--texto-suave);
+    background-color: var(--queijo-suave);
+    border-radius: var(--raio-sm);
+    font-size: 1.5rem;
+}
+
+.admin-col-nome {
+    font-weight: 500;
+    color: var(--texto);
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-categoria-badge {
+    display: inline-block;
+    padding: var(--espacamento-xs) var(--espacamento-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--texto);
+    background-color: var(--superficie-alta);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-pill);
+}
+
+.admin-col-preco {
+    font-family: var(--fonte-corpo);
+    font-weight: 700;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--tomate-claro);
+    white-space: nowrap;
+}
+
+.admin-col-acoes {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.btn-acao-pequena {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--espacamento-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.admin-form-excluir {
+    display: inline;
+}
+
+.admin-vazio {
+    text-align: center;
+    padding: var(--espacamento-xl) var(--espacamento-md);
+    color: var(--texto-suave);
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+}
+
+.admin-sucesso {
+    background-color: var(--superficie-alta);
+    border: 1px solid var(--manjericao);
+    color: var(--manjericao);
+    padding: var(--espacamento-md);
+    border-radius: var(--raio-md);
+    margin-bottom: var(--espacamento-lg);
+    font-size: 0.875rem;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-md);
+    max-width: 600px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacamento-xs);
+}
+
+.campo label {
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--texto);
+}
+
+.obrigatorio {
+    color: var(--tomate-claro);
+}
+
+.campo input[type="text"],
+.campo input[type="number"],
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: var(--espacamento-sm) var(--espacamento-md);
+    background-color: var(--fundo);
+    border: 2px solid var(--borda);
+    border-radius: var(--raio-sm);
+    color: var(--texto);
+    font-family: var(--fonte-corpo);
+    font-size: 1rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--tomate);
+    box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.2);
+}
+
+.campo select {
+    cursor: pointer;
+}
+
+.campo input[type="file"] {
+    padding: var(--espacamento-xs);
+    background-color: transparent;
+    border: 2px dashed var(--borda);
+    border-radius: var(--raio-sm);
+    cursor: pointer;
+}
+
+.campo input[type="file"]:focus {
+    border-color: var(--tomate);
+    box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.2);
+}
+
+.campo-ajuda {
+    font-size: 0.8125rem;
+    color: var(--texto-suave);
+}
+
+.admin-preview-imagem {
+    padding: var(--espacamento-md);
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+}
+
+.admin-preview-imagem p {
+    font-family: var(--fonte-corpo);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--texto);
+    margin-bottom: var(--espacamento-sm);
+}
+
+.admin-preview-imagem img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: var(--raio-sm);
+    border: 1px solid var(--borda);
+    background-color: var(--queijo-suave);
+}
+
+.admin-form-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacamento-sm);
+    margin-top: var(--espacamento-sm);
+}
+
+.admin-excluir-card {
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    padding: var(--espacamento-lg);
+    max-width: 500px;
+}
+
+.admin-excluir-aviso {
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    margin-top: var(--espacamento-sm);
+    margin-bottom: var(--espacamento-lg);
+}
+
+.admin-excluir-produto {
+    display: flex;
+    align-items: center;
+    gap: var(--espacamento-md);
+    padding: var(--espacamento-md);
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-md);
+    margin-bottom: var(--espacamento-lg);
+}
+
+.admin-excluir-miniatura {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: var(--raio-sm);
+    border: 1px solid var(--borda);
+    flex-shrink: 0;
+}
+
+.admin-excluir-nome {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--texto);
+    margin: 0 0 var(--espacamento-xs) 0;
+}
+
+.admin-excluir-detalhes {
+    font-size: 0.875rem;
+    color: var(--texto-suave);
+    margin: 0;
+}
+
+.admin-excluir-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacamento-sm);
+    justify-content: flex-end;
+}
+
+/* Responsivo: tabela vira cards empilhados */
+@media (max-width: 600px) {
+    .admin-tabela thead {
+        display: none;
+    }
+
+    .admin-tabela,
+    .admin-tabela tbody,
+    .admin-tabela tr,
+    .admin-tabela td {
+        display: block;
+        width: 100%;
+    }
+
+    .admin-tabela tr {
+        background-color: var(--superficie);
+        border: 1px solid var(--borda);
+        border-radius: var(--raio-md);
+        padding: var(--espacamento-md);
+        margin-bottom: var(--espacamento-md);
+    }
+
+    .admin-tabela td {
+        padding: var(--espacamento-xs) 0;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: var(--espacamento-sm);
+    }
+
+    .admin-tabela td::before {
+        content: attr(data-label);
+        font-family: var(--fonte-corpo);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--texto-suave);
+        min-width: 80px;
+        flex-shrink: 0;
+    }
+
+    .admin-col-imagem {
+        justify-content: flex-start;
+    }
+
+    .admin-col-acoes {
+        justify-content: flex-end;
+        padding-top: var(--espacamento-sm);
+        border-top: 1px solid var(--borda);
+    }
+
+    .admin-tabela td[data-label="Imagem"]::before {
+        display: none;
+    }
+
+    .admin-tabela td[data-label="Imagem"] {
+        justify-content: flex-start;
+        padding-left: 0;
+    }
+}
+
+/* Adicionar data-label aos th/td via JS não é possível sem JS,
+   então usamos nth-child no CSS para labels responsivos */
+@media (max-width: 600px) {
+    .admin-tabela td:nth-child(1)::before { content: "Imagem"; }
+    .admin-tabela td:nth-child(2)::before { content: "Nome"; }
+    .admin-tabela td:nth-child(3)::before { content: "Categoria"; }
+    .admin-tabela td:nth-child(4)::before { content: "Preço"; }
+    .admin-tabela td:nth-child(5)::before { content: "Ações"; }
 }

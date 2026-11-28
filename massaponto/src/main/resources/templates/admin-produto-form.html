@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/cabecalho :: head('Admin - Produto')}"></head>
+<body>
+    <header th:replace="~{fragments/cabecalho :: cabecalho}"></header>
+
+    <main class="principal container-pagina">
+        <section class="secao" aria-labelledby="titulo-form-produto">
+            <h2 id="titulo-form-produto" class="secao-titulo"
+                th:text="${produto.id != null} ? 'Editar Produto' : 'Cadastrar Produto'"></h2>
+
+            <div th:if="${erro}" class="checkout-erro" th:text="${erro}"></div>
+            <div th:if="${sucesso}" class="admin-sucesso" th:text="${sucesso}"></div>
+
+            <form method="post"
+                  th:action="${produto.id != null} ? @{/admin/produtos/{id}(id=${produto.id})} : @{/admin/produtos}"
+                  enctype="multipart/form-data"
+                  class="admin-form">
+
+                <div class="campo">
+                    <label for="nome">Nome <span class="obrigatorio">*</span></label>
+                    <input type="text" id="nome" name="nome" required maxlength="100"
+                           th:value="${produto.nome}"
+                           placeholder="Nome do produto">
+                </div>
+
+                <div class="campo">
+                    <label for="descricao">Descrição <span class="obrigatorio">*</span></label>
+                    <textarea id="descricao" name="descricao" rows="4" required
+                              placeholder="Descrição do produto"
+                              th:text="${produto.descricao}"></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="preco">Preço (R$) <span class="obrigatorio">*</span></label>
+                    <input type="text" id="preco" name="preco" required
+                           th:value="${precoFormatado}"
+                           placeholder="Ex: 49,90 ou 49.90"
+                           pattern="[0-9]+([.,][0-9]{1,2})?"
+                           title="Digite o preço em reais, ex: 49,90">
+                    <small class="campo-ajuda">Use vírgula ou ponto para centavos. Ex: 49,90</small>
+                </div>
+
+                <div class="campo">
+                    <label for="categoria">Categoria <span class="obrigatorio">*</span></label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="cat : ${categorias}"
+                                th:value="${cat.name()}"
+                                th:text="${cat.nomeExibicao}"
+                                th:selected="${produto.categoria != null and produto.categoria.name() == cat.name()}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="imagem">Imagem</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/jpeg,image/png,image/webp">
+                    <small th:if="${produto.id != null}" class="campo-ajuda">
+                        Deixe em branco para manter a imagem atual.
+                        <span th:if="${produto.imagemSrc}"> Arquivos permitidos: JPEG, PNG, WebP (máx. 2 MB).</span>
+                    </small>
+                    <small th:unless="${produto.id != null}" class="campo-ajuda">
+                        Arquivos permitidos: JPEG, PNG, WebP (máx. 2 MB).
+                    </small>
+                </div>
+
+                <!-- Preview da imagem atual ao editar -->
+                <div th:if="${produto.id != null and produto.imagemSrc != null}" class="admin-preview-imagem">
+                    <p>Imagem atual:</p>
+                    <img th:src="${produto.imagemSrc}" th:alt="${produto.nome}">
+                </div>
+
+                <div class="admin-form-acoes">
+                    <button type="submit" class="btn-adicionar">Salvar</button>
+                    <a th:href="@{/admin/produtos}" class="btn-voltar">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
